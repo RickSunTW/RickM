@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5764068923E2D2990056440F /* FriendGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5764068823E2D2990056440F /* FriendGroupTableViewCell.swift */; };
+		5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */; };
+		5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */; };
 		57D0273E23E1EFD20078460D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D0273D23E1EFD20078460D /* AppDelegate.swift */; };
 		57D0274223E1EFD20078460D /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D0274123E1EFD20078460D /* FriendViewController.swift */; };
 		57D0274523E1EFD20078460D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D0274323E1EFD20078460D /* Main.storyboard */; };
@@ -18,7 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5764068823E2D2990056440F /* FriendGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGroupTableViewCell.swift; sourceTree = "<group>"; };
+		5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGroupTableViewCell.swift; sourceTree = "<group>"; };
+		5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyGroupTableViewCell.swift; sourceTree = "<group>"; };
 		57D0273A23E1EFD20078460D /* RickM+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RickM+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D0273D23E1EFD20078460D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57D0274123E1EFD20078460D /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
@@ -52,9 +54,10 @@
 		5764068B23E2DAC80056440F /* Friend */ = {
 			isa = PBXGroup;
 			children = (
-				5764068823E2D2990056440F /* FriendGroupTableViewCell.swift */,
-				57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */,
 				57E1708623E2AFF100871888 /* FriendPersonalTableViewCell.swift */,
+				57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */,
+				5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */,
+				5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -162,9 +165,10 @@
 			files = (
 				57E1708523E2A68400871888 /* FriendCompanyTableViewCell.swift in Sources */,
 				57E1708723E2AFF100871888 /* FriendPersonalTableViewCell.swift in Sources */,
-				5764068923E2D2990056440F /* FriendGroupTableViewCell.swift in Sources */,
+				5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */,
 				57D0274223E1EFD20078460D /* FriendViewController.swift in Sources */,
 				57D0273E23E1EFD20078460D /* AppDelegate.swift in Sources */,
+				5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

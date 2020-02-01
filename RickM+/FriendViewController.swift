@@ -23,7 +23,16 @@ class FriendViewController: UIViewController {
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { return 4 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch (section) {
+        case 0: return 1
+        case 1: return 1
+        case 2: return 2
+        case 3: return 1
+        default:
+            return 0
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
@@ -55,14 +64,26 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         else if indexPath.section == 2 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendGroup", for: indexPath) as? FriendGroupTableViewCell else {
+            if indexPath.row == 0 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCompanyGroup", for: indexPath) as? FriendCompanyGroupTableViewCell else {
+                    
+                    return UITableViewCell()
+                }
                 
-                return UITableViewCell()
+                cell.friendCompanyGroupName.text = "PT Group"
+                
+                return cell
+            } else if indexPath.row == 1 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendGroup", for: indexPath) as? FriendGroupTableViewCell else {
+                                  
+                                  return UITableViewCell()
+                              }
+                              
+                              cell.friendGroupName.text = "股票買起來～～～"
+                              
+                              return cell
+                
             }
-            
-            cell.friendGroupName.text = "PT Group"
-            
-            return cell
             
         }
         else if indexPath.section == 3 {
@@ -86,9 +107,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch (section) {
         case 0: return nil
-        case 1: return "企業帳號"
-        case 2: return "群組"
-        case 3: return "好友"
+        case 1: return "企業帳號(1)"
+        case 2: return "群組(2)"
+        case 3: return "好友(1)"
         default:
             return nil
         }
