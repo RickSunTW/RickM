@@ -13,12 +13,15 @@ class GiftViewController: UIViewController {
     
     @IBOutlet weak var giftImageCollectionView: UICollectionView!
     @IBOutlet weak var giftImagePageView: UIPageControl!
+    @IBOutlet weak var giftProductItemCollectionView: UICollectionView!
     
     var imageTest = [
         UIImage(named: "KohTaoSunset"),
         UIImage(named: "PalauJellyfish"),
         UIImage(named: "ThaiTemple")
     ]
+    
+    var giftProductItemLabel = ["鼠年必備", "填飽肚子", "解饞零嘴", "來一杯吧", "甜食來襲", "解渴救星"]
     
     var timer = Timer()
     var counter = 0
@@ -30,17 +33,21 @@ class GiftViewController: UIViewController {
         
         giftImageCollectionView.dataSource = self
         
+        giftProductItemCollectionView.delegate = self
+        
+        giftProductItemCollectionView.dataSource = self
+        
         giftImageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         giftImagePageView.numberOfPages = imageTest.count
         
         giftImagePageView.currentPage = 0
         
-//        DispatchQueue.main.async {
-//            
-//            self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
-//            
-//        }
+                DispatchQueue.main.async {
+        
+                    self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+        
+                }
         
         
         // Do any additional setup after loading the view.
@@ -77,12 +84,21 @@ class GiftViewController: UIViewController {
 
 extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageTest.count
-        
+        if collectionView == self.giftImageCollectionView {
+            
+            return imageTest.count
+            
+        }
+        else if collectionView == self.giftProductItemCollectionView {
+            
+            return giftProductItemLabel.count
+            
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let withReuseIdentifier = "GiftImageCollectionView" {
+        if collectionView == self.giftImageCollectionView {
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GiftImageCollectionView", for: indexPath) as? GiftImageCollectionViewCell else {
                 
@@ -94,7 +110,21 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
             
         }
-
+        else if collectionView == self.giftProductItemCollectionView {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductItemsCollectionView", for: indexPath) as? ProductItemsCollectionViewCell else {
+                
+                return UICollectionViewCell()
+            }
+            
+            cell.giftProductItemsLable.text = giftProductItemLabel[indexPath.row]
+            cell.giftProductItemsLable.layer.borderWidth = 0.5
+            return cell
+            
+            
+            
+        }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -105,9 +135,22 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size = giftImageCollectionView.frame.size
+        if collectionView == self.giftImageCollectionView {
+            
+            let size = giftImageCollectionView.frame.size
+            
+            return CGSize(width: size.width, height: size.height)
+            
+        }
+        else if collectionView == self.giftProductItemCollectionView {
+            
+            let size = giftProductItemCollectionView.frame.size
+            
+            return CGSize(width: 80, height: size.height)
+            
+        }
+        return CGSize(width: 100, height: 60)
         
-        return CGSize(width: size.width, height: size.height)
         
     }
     
