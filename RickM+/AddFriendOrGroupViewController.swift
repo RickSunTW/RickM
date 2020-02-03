@@ -38,6 +38,7 @@ class AddFriendOrGroupViewController: UIViewController {
         
         searchFriendTableView.dataSource = self
         
+        
     }
 }
 
