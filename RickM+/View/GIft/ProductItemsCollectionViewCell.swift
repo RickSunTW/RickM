@@ -12,5 +12,4 @@ class ProductItemsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var giftProductItemsLable: UILabel!
     
-    
 }

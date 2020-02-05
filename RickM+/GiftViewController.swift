@@ -30,6 +30,7 @@ class GiftViewController: UIViewController {
     var product3 = ["Let's Cafe 大杯熱拿鐵", "Let's Cafe 中杯熱巧克力", "Let's Cafe 50元兌換卷", "Let's Cafe 大杯冰拿鐵"]
     var product4 = ["易口舒脆皮軟新薄荷糖", "蓋奇巧克力棒", "金沙巧克力3粒裝", "森永牛奶糖", "曼陀珠20元系列"]
     var product5 = ["義美錫蘭紅茶", "FMC蜂蜜水", "波蜜果菜汁", "生活泡沫綠茶"]
+    var selectedStatus = [Bool](repeating: false, count: 6)
     
     var timer = Timer()
     var counter = 0
@@ -62,10 +63,15 @@ class GiftViewController: UIViewController {
             self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
             
         }
-        
-        
+        selectedStatus[0] = true
+         
         // Do any additional setup after loading the view.
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.giftProductItemCollectionView.reloadData()
+//    }
+    
     
     @objc func changeImage() {
         
@@ -135,11 +141,23 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.giftProductItemsLable.text = giftProductItemLabel[indexPath.row]
             cell.giftProductItemsLable.layer.borderWidth = 0.5
             cell.giftProductItemsLable.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//            if (indexPath.row == 0) {
+//                cell.contentView.backgroundColor =  UIColor.darkGray
+//                self.selectedStatus[0] = true
+//            }
+            
+            if selectedStatus[indexPath.item] {
+                
+                cell.contentView.backgroundColor = UIColor.darkGray
+                
+            } else {
+                
+                cell.contentView.backgroundColor = UIColor.lightGray
+                
+            }
             
             return cell
-            
-            
-            
+    
         }
         return UICollectionViewCell()
     }
@@ -185,8 +203,14 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.giftProductItemCollectionView {
-            
+                         
             selectItem = indexPath.row
+            
+            selectedStatus = [Bool](repeating: false, count: selectedStatus.count)
+            
+            selectedStatus[indexPath.row] = true
+
+            self.giftProductItemCollectionView.reloadData()
             
             self.giftProductListTableView.reloadData()
             
@@ -212,7 +236,7 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GiftProductListTableViewCell", for: indexPath) as? GiftProductListTableViewCell else {
             
             return UITableViewCell()
-            
+           
         }
         switch selectItem {
         case 0:
@@ -244,7 +268,5 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
-    
-    
+
 }
