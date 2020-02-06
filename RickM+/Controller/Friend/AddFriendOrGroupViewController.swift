@@ -19,7 +19,6 @@ class AddFriendOrGroupViewController: UIViewController {
         
     }
     
-    
     @IBOutlet var creatOrSearchCompanyGroup: [UIButton]!
     
     @IBAction func createOrSearchGroupAction(_ sender: Any) {
@@ -30,6 +29,17 @@ class AddFriendOrGroupViewController: UIViewController {
             
         }
     }
+    
+    @IBAction func creatCGroupBtn(_ sender: Any) {
+        performSegue(withIdentifier: "CreatGroup", sender: nil)
+    }
+    
+    @IBAction func creatFGroupBtn(_ sender: Any) {
+        performSegue(withIdentifier: "CreatGroup", sender: nil)
+    }
+    @IBAction func searchGroupBtn(_ sender: Any) {
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

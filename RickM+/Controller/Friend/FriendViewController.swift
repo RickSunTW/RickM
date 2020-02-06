@@ -87,7 +87,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
                 
-                cell.friendGroupName.text = "股票買起來～～～"
+                cell.friendGroupName.text = "text1～～～"
                 
                 return cell
                 
@@ -103,7 +103,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.friendCompanyName.text = "Lisa"
             
-            cell.friendCompanyStatus.text = "耍廢玩遊戲，不要吵我"
+            cell.friendCompanyStatus.text = "text2text2text2text2"
             
             return cell
             
