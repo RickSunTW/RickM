@@ -15,6 +15,8 @@ class FriendCompanyGroupTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        friendCompanyGroupImage.layer.masksToBounds = true
+        friendCompanyGroupImage.layer.cornerRadius = 5
         // Initialization code
     }
 

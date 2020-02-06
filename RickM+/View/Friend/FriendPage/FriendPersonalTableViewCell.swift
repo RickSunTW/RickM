@@ -15,6 +15,8 @@ class FriendPersonalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        friendPersonalImage.layer.masksToBounds = true
+        friendPersonalImage.layer.cornerRadius = 5
         // Initialization code
     }
 

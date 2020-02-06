@@ -66,7 +66,8 @@ extension AddFriendOrGroupViewController: UITableViewDelegate, UITableViewDataSo
             
         }
         
-        cell.searchFriendName.text = "Ken"
+        cell.searchFriendName.text = "kobe bryant"
+//        cell.searchFriendName.layer.cornerRadius = 20
         
         return cell
     }
