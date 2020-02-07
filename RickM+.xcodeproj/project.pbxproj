@@ -11,6 +11,10 @@
 		5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */; };
 		5759532823E555580060F27E /* AddFriendOrGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759532723E555580060F27E /* AddFriendOrGroupViewController.swift */; };
 		5759BB8D23E594F00037FF3F /* SearchFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759BB8C23E594F00037FF3F /* SearchFriendTableViewCell.swift */; };
+		575AC1E023ED0D7900CC16DD /* 101APB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1DF23ED0D7900CC16DD /* 101APB.ttf */; };
+		575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */; };
+		575AC1E423ED158300CC16DD /* hlsimple.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1E323ED158300CC16DD /* hlsimple.ttf */; };
+		575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AC1E523ED354600CC16DD /* LogInViewController.swift */; };
 		575ACCAA23EA575D000842F2 /* ChatMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCA923EA575D000842F2 /* ChatMainViewController.swift */; };
 		575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
@@ -32,6 +36,10 @@
 		5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGroupTableViewCell.swift; sourceTree = "<group>"; };
 		5759532723E555580060F27E /* AddFriendOrGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendOrGroupViewController.swift; sourceTree = "<group>"; };
 		5759BB8C23E594F00037FF3F /* SearchFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendTableViewCell.swift; sourceTree = "<group>"; };
+		575AC1DF23ED0D7900CC16DD /* 101APB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 101APB.ttf; sourceTree = "<group>"; };
+		575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VNI-Ongdo.ttf"; sourceTree = "<group>"; };
+		575AC1E323ED158300CC16DD /* hlsimple.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hlsimple.ttf; sourceTree = "<group>"; };
+		575AC1E523ED354600CC16DD /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		575ACCA923EA575D000842F2 /* ChatMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMainViewController.swift; sourceTree = "<group>"; };
 		575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
@@ -80,6 +88,40 @@
 			path = SearchPage;
 			sourceTree = "<group>";
 		};
+		575AC1DC23ED0B0000CC16DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				575AC1DF23ED0D7900CC16DD /* 101APB.ttf */,
+				575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */,
+				575AC1E323ED158300CC16DD /* hlsimple.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		575AC1E723ED354F00CC16DD /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				575AC1E523ED354600CC16DD /* LogInViewController.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		575AC1E823ED355E00CC16DD /* Gift */ = {
+			isa = PBXGroup;
+			children = (
+				57609FE123E6B51200F91EB7 /* GiftViewController.swift */,
+			);
+			path = Gift;
+			sourceTree = "<group>";
+		};
+		575AC1E923ED356F00CC16DD /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				575ACCA923EA575D000842F2 /* ChatMainViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		575ACCAD23EA8BF9000842F2 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +164,10 @@
 		57690F5623EBA8B800710824 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				575AC1E723ED354F00CC16DD /* LogIn */,
 				575ACCAD23EA8BF9000842F2 /* Friend */,
-				57609FE123E6B51200F91EB7 /* GiftViewController.swift */,
-				575ACCA923EA575D000842F2 /* ChatMainViewController.swift */,
+				575AC1E923ED356F00CC16DD /* Chat */,
+				575AC1E823ED355E00CC16DD /* Gift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -156,6 +199,7 @@
 		57D0273C23E1EFD20078460D /* RickM+ */ = {
 			isa = PBXGroup;
 			children = (
+				575AC1DC23ED0B0000CC16DD /* Resources */,
 				57690F5623EBA8B800710824 /* Controller */,
 				5764068A23E2DA510056440F /* View */,
 				57D0273D23E1EFD20078460D /* AppDelegate.swift */,
@@ -227,7 +271,10 @@
 			files = (
 				57D0274A23E1EFD50078460D /* LaunchScreen.storyboard in Resources */,
 				57D0274723E1EFD50078460D /* Assets.xcassets in Resources */,
+				575AC1E423ED158300CC16DD /* hlsimple.ttf in Resources */,
 				57D0274523E1EFD20078460D /* Main.storyboard in Resources */,
+				575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */,
+				575AC1E023ED0D7900CC16DD /* 101APB.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +297,7 @@
 				575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */,
 				575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */,
 				57D0274223E1EFD20078460D /* FriendViewController.swift in Sources */,
+				575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */,
 				57D0273E23E1EFD20078460D /* AppDelegate.swift in Sources */,
 				57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */,
 				5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */,

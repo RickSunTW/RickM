@@ -51,11 +51,6 @@ class CreateGroupViewController: UIViewController,UIImagePickerControllerDelegat
 
     }
     
-    
-    
-    
-    
-    
     func photopicker(){
         
         let photoController = UIImagePickerController()
