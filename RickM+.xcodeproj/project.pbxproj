@@ -17,6 +17,7 @@
 		5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */; };
 		5759532823E555580060F27E /* AddFriendOrGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759532723E555580060F27E /* AddFriendOrGroupViewController.swift */; };
 		5759A6A923F29449004517A2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759A6A823F29449004517A2 /* File.swift */; };
+		5759A6AB23F2B0E7004517A2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5759A6AA23F2B0E7004517A2 /* GoogleService-Info.plist */; };
 		5759BB8D23E594F00037FF3F /* SearchFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5759BB8C23E594F00037FF3F /* SearchFriendTableViewCell.swift */; };
 		575AC1E023ED0D7900CC16DD /* 101APB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1DF23ED0D7900CC16DD /* 101APB.ttf */; };
 		575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */; };
@@ -52,6 +53,7 @@
 		5759532523E51A150060F27E /* FriendGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGroupTableViewCell.swift; sourceTree = "<group>"; };
 		5759532723E555580060F27E /* AddFriendOrGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendOrGroupViewController.swift; sourceTree = "<group>"; };
 		5759A6A823F29449004517A2 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		5759A6AA23F2B0E7004517A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5759BB8C23E594F00037FF3F /* SearchFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendTableViewCell.swift; sourceTree = "<group>"; };
 		575AC1DF23ED0D7900CC16DD /* 101APB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 101APB.ttf; sourceTree = "<group>"; };
 		575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VNI-Ongdo.ttf"; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				57D0274623E1EFD50078460D /* Assets.xcassets */,
 				57D0274823E1EFD50078460D /* LaunchScreen.storyboard */,
 				57D0274B23E1EFD50078460D /* Info.plist */,
+				5759A6AA23F2B0E7004517A2 /* GoogleService-Info.plist */,
 			);
 			path = "RickM+";
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				57D0274523E1EFD20078460D /* Main.storyboard in Resources */,
 				575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */,
 				575AC1E023ED0D7900CC16DD /* 101APB.ttf in Resources */,
+				5759A6AB23F2B0E7004517A2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
