@@ -1,0 +1,101 @@
+//
+//  SelfInformationViewController.swift
+//  RickM+
+//
+//  Created by RickSun on 2020/2/10.
+//  Copyright © 2020 RickSun. All rights reserved.
+//
+
+import UIKit
+import Firebase
+import FirebaseFirestore
+
+class SelfInformationViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    @IBOutlet weak var selfImageBtn: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var statusLable: UILabel!
+    @IBAction func setSelfImageAction(_ sender: UIButton) {
+        
+        let setImageController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "開啟相機拍照", style: .default) { (_) in
+            self.camera()
+            //info.plist 修改Localization native development region -> $(DEVELOPMENT_LANGUAGE)
+        }
+        let libraryAction = UIAlertAction(title: "從相簿中選擇", style: .default) { (_) in
+            self.photopicker()
+        }
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { (_) in
+            sender.setImage(UIImage(named: "photo"), for: .normal)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        setImageController.addAction(cameraAction)
+        setImageController.addAction(libraryAction)
+        setImageController.addAction(deleteAction)
+        setImageController.addAction(cancelAction)
+        present(setImageController, animated: true, completion: nil)
+    }
+    
+    @IBAction func changeNameAction(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "ChangeName", sender: nil)
+    }
+    
+    @IBAction func changeStatusAction(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "ChangeStatus", sender: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        readUsers(id: "\(UserUid.share.logInUserUid)")
+
+        // Do any additional setup after loading the view.
+    }
+    
+    let db = Firestore.firestore()
+    
+    func photopicker(){
+        
+        let photoController = UIImagePickerController()
+        photoController.delegate = self
+        photoController.sourceType = .photoLibrary
+        present(photoController, animated: true, completion: nil)
+    }
+    func camera(){
+        let cameraController = UIImagePickerController()
+        cameraController.delegate = self
+        cameraController.sourceType = .camera
+        present(cameraController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage
+        selfImageBtn.setImage(image, for: .normal)
+        dismiss(animated: true, completion: nil)
+    
+    }
+    
+    func readUsers(id: String){
+        db.collection("Users").whereField("id", isEqualTo: id).getDocuments(){ (querySnapshot, err) in
+           if let err = err {
+               print("Error getting documents: \(err)")
+           } else {
+               guard let quary = querySnapshot else {return }
+               
+               for document in quary.documents {
+                   print("\(document.documentID) => \(document.data())")
+               }
+           }
+       }
+    }
+ 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

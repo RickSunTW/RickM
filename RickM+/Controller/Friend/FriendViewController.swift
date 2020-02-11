@@ -20,6 +20,7 @@ class FriendViewController: UIViewController {
         super.viewDidLoad()
         friendTableView.delegate = self
         friendTableView.dataSource = self
+        friendTableView.separatorStyle = .none
         // Do any additional setup after loading the view.
     }
 }

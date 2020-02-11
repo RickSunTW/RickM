@@ -52,6 +52,8 @@ class GiftViewController: UIViewController {
         
         giftProductListTableView.dataSource = self
         
+        giftProductListTableView.separatorStyle = .none
+        
         giftImageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         giftImagePageView.numberOfPages = imageTest.count

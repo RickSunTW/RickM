@@ -15,6 +15,7 @@ class ChatMainViewController: UIViewController {
         super.viewDidLoad()
         chatTableView.delegate = self
         chatTableView.dataSource = self
+        chatTableView.separatorStyle = .none
 
         // Do any additional setup after loading the view.
     }
