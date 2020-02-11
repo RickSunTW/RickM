@@ -22,7 +22,6 @@
 		575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */; };
 		575AC1E423ED158300CC16DD /* hlsimple.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1E323ED158300CC16DD /* hlsimple.ttf */; };
 		575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AC1E523ED354600CC16DD /* LogInViewController.swift */; };
-		575AC1EB23ED45A600CC16DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 575AC1EA23ED45A600CC16DD /* GoogleService-Info.plist */; };
 		575ACCAA23EA575D000842F2 /* ChatMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCA923EA575D000842F2 /* ChatMainViewController.swift */; };
 		575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
@@ -58,7 +57,6 @@
 		575AC1E123ED13F000CC16DD /* VNI-Ongdo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VNI-Ongdo.ttf"; sourceTree = "<group>"; };
 		575AC1E323ED158300CC16DD /* hlsimple.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hlsimple.ttf; sourceTree = "<group>"; };
 		575AC1E523ED354600CC16DD /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		575AC1EA23ED45A600CC16DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		575ACCA923EA575D000842F2 /* ChatMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMainViewController.swift; sourceTree = "<group>"; };
 		575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				57D0274623E1EFD50078460D /* Assets.xcassets */,
 				57D0274823E1EFD50078460D /* LaunchScreen.storyboard */,
 				57D0274B23E1EFD50078460D /* Info.plist */,
-				575AC1EA23ED45A600CC16DD /* GoogleService-Info.plist */,
 			);
 			path = "RickM+";
 			sourceTree = "<group>";
@@ -349,7 +346,6 @@
 				57D0274523E1EFD20078460D /* Main.storyboard in Resources */,
 				575AC1E223ED13F000CC16DD /* VNI-Ongdo.ttf in Resources */,
 				575AC1E023ED0D7900CC16DD /* 101APB.ttf in Resources */,
-				575AC1EB23ED45A600CC16DD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
