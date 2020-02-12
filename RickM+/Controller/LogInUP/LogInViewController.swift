@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseFirestore
 
 class LogInViewController: UIViewController {
     
@@ -102,14 +101,14 @@ class LogInViewController: UIViewController {
     }
     func addUserData() {
         let db = Firestore.firestore()
-        db.collection("Users").document().setData([
+        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
             "email": "\(accountTtextField.text!)",
-            "friends": [],
+            "friends": ["poye@gmail.com", "lisayang@gmail.com"],
             "id": "\(UserUid.share.logInUserUid)",
-            "m+ID": "",
-            "name": "",
-            "phoneNumber": "",
-            "status": ""
+            "m+ID": "RickSun",
+            "name": "三重劉德華",
+            "phoneNumber": "+886922000000",
+            "status": "努力寫code中"
             ])
         { (error) in
             if let error = error {
