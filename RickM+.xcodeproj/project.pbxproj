@@ -37,7 +37,7 @@
 		57D0274A23E1EFD50078460D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D0274823E1EFD50078460D /* LaunchScreen.storyboard */; };
 		57E1708523E2A68400871888 /* FriendCompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */; };
 		57E1708723E2AFF100871888 /* FriendPersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E1708623E2AFF100871888 /* FriendPersonalTableViewCell.swift */; };
-		6C643F734BB4EDC6D07C2572 /* Pods_RickM_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E161928EFF44331FE9ECFAE9 /* Pods_RickM_.framework */; };
+		E4043FF53F6CA636B5F507E0 /* libPods-RickM+.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +75,7 @@
 		57D0274B23E1EFD50078460D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyTableViewCell.swift; sourceTree = "<group>"; };
 		57E1708623E2AFF100871888 /* FriendPersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPersonalTableViewCell.swift; sourceTree = "<group>"; };
-		E161928EFF44331FE9ECFAE9 /* Pods_RickM_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickM_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RickM+.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C643F734BB4EDC6D07C2572 /* Pods_RickM_.framework in Frameworks */,
+				E4043FF53F6CA636B5F507E0 /* libPods-RickM+.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +269,7 @@
 		6B3F5760F3AC8C71E5A9CC20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E161928EFF44331FE9ECFAE9 /* Pods_RickM_.framework */,
+				9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 				57D0273623E1EFD20078460D /* Sources */,
 				57D0273723E1EFD20078460D /* Frameworks */,
 				57D0273823E1EFD20078460D /* Resources */,
-				46EC19AEF716A9041B5AE1CC /* [CP] Embed Pods Frameworks */,
+				693552DAEACD41422C1B83B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -378,21 +378,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		46EC19AEF716A9041B5AE1CC /* [CP] Embed Pods Frameworks */ = {
+		693552DAEACD41422C1B83B2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

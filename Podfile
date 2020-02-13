@@ -3,7 +3,6 @@
 
 target 'RickM+' do
   # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
 
   # Pods for RickM+
    # add the Firebase pod for Google Analytics

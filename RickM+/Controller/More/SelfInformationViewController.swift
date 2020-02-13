@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import FirebaseFirestore
+
 
 class SelfInformationViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -80,23 +80,23 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         
         dismiss(animated: true, completion: nil)
         
-//        let uniqueString = UUID().uuidString
-//        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(uniqueString).jpg")
-//
-//        let uploadData = selectedImageFormPicker?.pngData()
-//        let metaData = StorageMetadata()
-//        metaData.contentType = "image/png"
-//
-//        storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
-//            if error != nil {
-//                print("error")
-//                return
-//            } else {
-//                storageRef.downloadURL { (url, error) in
-//                    url
-//                }
-//            }
-//        }
+        let uniqueString = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(uniqueString).jpg")
+
+        let uploadData = selectedImageFormPicker?.pngData()
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+
+        storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
+            if error != nil {
+                print("error")
+                return
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    url
+                }
+            }
+        }
     }
     
     
