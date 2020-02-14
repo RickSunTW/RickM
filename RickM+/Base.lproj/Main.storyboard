@@ -940,9 +940,11 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="Dfd-8d-tMe"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="mIDLabel" destination="EIN-gE-JAt" id="hSa-NO-hlJ"/>
                         <outlet property="nameLabel" destination="S2q-SW-9Bf" id="zY0-sr-6EO"/>
+                        <outlet property="phoneNumberLabel" destination="gFV-qS-lxL" id="bqg-jv-l8c"/>
                         <outlet property="selfImageBtn" destination="Xp4-mY-GlJ" id="XOP-FJ-iQQ"/>
-                        <outlet property="statusLable" destination="9jz-aP-R92" id="DVR-Tu-se4"/>
+                        <outlet property="statusLabel" destination="9jz-aP-R92" id="DVR-Tu-se4"/>
                         <segue destination="O8R-oJ-962" kind="show" identifier="ChangeName" id="UbB-8C-7XF"/>
                         <segue destination="gGY-8j-znn" kind="show" identifier="ChangeStatus" id="vy4-Em-tNo"/>
                     </connections>
@@ -1105,6 +1107,9 @@
                                 <state key="normal" title="確定">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="setNameBtnAction:" destination="O8R-oJ-962" eventType="touchUpInside" id="d6b-LW-ge3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1128,6 +1133,9 @@
                         <viewLayoutGuide key="safeArea" id="PRf-Is-QBH"/>
                     </view>
                     <navigationItem key="navigationItem" title="請設定暱稱" id="POV-Th-Bix"/>
+                    <connections>
+                        <outlet property="setNameTextField" destination="2AM-iF-g8B" id="Dqq-Zs-XSk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djU-ie-xvB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

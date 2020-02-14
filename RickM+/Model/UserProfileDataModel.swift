@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 
+
 struct Users: Codable {
     var email: String
     var friends: [String]
-   var id: String
+    var id: String
     var mID: String
     var name: String
     var phoneNumber: String

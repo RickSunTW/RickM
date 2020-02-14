@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestoreSwift
 
 class ChangeStatusViewController: UIViewController {
     @IBOutlet weak var defaultStatusTableView: UITableView!
@@ -40,6 +42,15 @@ class ChangeStatusViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    let db = Firestore.firestore()
+    func UpdateSelfData() {
+        
+        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+            "name":"內湖洲子魚",
+            "心情":"尚可"
+        ], merge: true)
+        
+    }
     
 }
 
@@ -55,6 +66,8 @@ extension ChangeStatusViewController: UITableViewDelegate, UITableViewDataSource
         cell.defaultStatusLabel.text = defaultStatus[indexPath.row]
         return cell
     }
+    
+    
 //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        
 //        return "預設狀態"

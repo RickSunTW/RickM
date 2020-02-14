@@ -14,7 +14,11 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     @IBOutlet weak var selfImageBtn: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var statusLable: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var mIDLabel: UILabel!
+    
+    
     @IBAction func setSelfImageAction(_ sender: UIButton) {
         
         let setImageController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -38,19 +42,24 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     @IBAction func changeNameAction(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangeName", sender: nil)
-        UpdateSelfData()
+                UpdateSelfData()
     }
     
     @IBAction func changeStatusAction(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangeStatus", sender: nil)
-        DeleteSelfData()
+                DeleteSelfData()
     }
+    
+    var userProfileManager = UserProfileManager()
+    var userProfileData = [Users]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        readUsers(id: "\(UserUid.share.logInUserUid)")
         
-        // Do any additional setup after loading the view.
+        userProfileManager.delegate = self
+        
+        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
+        
     }
     
     let db = Firestore.firestore()
@@ -82,11 +91,11 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         
         let uniqueString = UUID().uuidString
         let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(uniqueString).jpg")
-
+        
         let uploadData = selectedImageFormPicker?.pngData()
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
-
+        
         storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
             if error != nil {
                 print("error")
@@ -99,66 +108,43 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
+    func UpdateSelfData() {
+        
+        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+            "name":"內湖洲子魚",
+            "心情":"尚可"
+        ], merge: true)
+        
+    }
     
+    func DeleteSelfData(){
+        db.collection("Users").document("\(UserUid.share.logInUserUid)").updateData(["心情":FieldValue.delete()])
+        
+        
+    }
     
+}
 
-func readUsers(id: String){
-    db.collection("Users").whereField("id", isEqualTo: id).getDocuments(){ (querySnapshot, err) in
-        if let err = err {
-            print("Error getting documents: \(err)")
-        } else {
-            guard let quary = querySnapshot else {
-                
-                return
-                
-            }
+
+extension SelfInformationViewController: UserProfileManagerDelegate {
+    func manager(_ manager: UserProfileManager, didgetUserData: Users) {
+        
+        DispatchQueue.main.async {
             
-            for document in quary.documents {
-                
-                do {
-                    
-                    let user = try document.data(as: Users.self, decoder: Firestore.Decoder())
-                    
-                    print(user)
-                    
-                } catch {
-                    
-                    print(error)
-                    
-                }
-                
-                
-                
-                
-                
-//                let documentdata = document.data()
-//                print("\(document.documentID) => \(document.data())")
-            }
+            self.nameLabel.text = didgetUserData.name
+            self.statusLabel.text = didgetUserData.status
+            self.phoneNumberLabel.text = didgetUserData.phoneNumber
+            self.mIDLabel.text = didgetUserData.mID
+            
+            
+            
+            
         }
     }
-}
-func UpdateSelfData() {
     
-    db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
-        "name":"內湖洲子魚",
-        "心情":"尚可"
-    ], merge: true)
-    
-}
-
-func DeleteSelfData(){
-    db.collection("Users").document("\(UserUid.share.logInUserUid)").updateData(["心情":FieldValue.delete()])
+    func manager(_ manager: UserProfileManager, didFailWith error: Error) {
+        print(error.localizedDescription)
+    }
     
     
-}
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
-
 }
