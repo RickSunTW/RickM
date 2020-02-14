@@ -174,9 +174,6 @@ PODS:
     - FirebaseAnalytics (= 6.2.2)
   - Firebase/CoreOnly (6.17.0):
     - FirebaseCore (= 6.6.2)
-  - Firebase/Database (6.17.0):
-    - Firebase/CoreOnly
-    - FirebaseDatabase (~> 6.1.4)
   - Firebase/Firestore (6.17.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.10.2)
@@ -211,10 +208,6 @@ PODS:
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseDatabase (6.1.4):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-    - leveldb-library (~> 1.22)
   - FirebaseFirestore (1.10.2):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
@@ -228,6 +221,8 @@ PODS:
     - "gRPC-C++ (= 0.0.9)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 0.3.901)
+  - FirebaseFirestoreSwift (0.2):
+    - FirebaseFirestore (>= 1.6.1, ~> 1.6)
   - FirebaseInstallations (1.1.0):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
@@ -297,10 +292,11 @@ PODS:
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
-  - Firebase/Core
-  - Firebase/Database
   - Firebase/Firestore
   - Firebase/Storage
+  - FirebaseCore
+  - FirebaseFirestore
+  - FirebaseFirestoreSwift
 
 SPEC REPOS:
   trunk:
@@ -313,8 +309,8 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
-    - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseStorage
@@ -339,8 +335,8 @@ SPEC CHECKSUMS:
   FirebaseCore: a1dd9dd6355a8356dd30a8f076839e242285a81c
   FirebaseCoreDiagnostics: 5e78803ab276bc5b50340e3c539c06c3de35c649
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseDatabase: 0144e0706a4761f1b0e8679572eba8095ddb59be
   FirebaseFirestore: 2ee644acccde18e49b2fb5d434c709b1f1171b13
+  FirebaseFirestoreSwift: 0437bb10d83f8161a9131da1739998254c78fdf5
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
   FirebaseInstanceID: 031d7d0c8e7b5c030bbeb4d2a690550375e83fec
   FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
@@ -355,6 +351,6 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
 
-PODFILE CHECKSUM: f76d6743296c5851dbc6c3a81c20cf97a133c391
+PODFILE CHECKSUM: f2689233c80f5cf228bf4cb7585f8cd0ad2707e6
 
 COCOAPODS: 1.8.4

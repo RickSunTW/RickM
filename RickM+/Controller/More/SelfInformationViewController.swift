@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import FirebaseFirestoreSwift
 
 class SelfInformationViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -107,11 +107,32 @@ func readUsers(id: String){
         if let err = err {
             print("Error getting documents: \(err)")
         } else {
-            guard let quary = querySnapshot else {return }
+            guard let quary = querySnapshot else {
+                
+                return
+                
+            }
             
             for document in quary.documents {
-                let documentdata = document.data()
-                print("\(document.documentID) => \(document.data())")
+                
+                do {
+                    
+                    let user = try document.data(as: Users.self, decoder: Firestore.Decoder())
+                    
+                    print(user)
+                    
+                } catch {
+                    
+                    print(error)
+                    
+                }
+                
+                
+                
+                
+                
+//                let documentdata = document.data()
+//                print("\(document.documentID) => \(document.data())")
             }
         }
     }

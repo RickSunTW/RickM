@@ -30,6 +30,7 @@
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
 		57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */; };
 		5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */; };
+		57C1360023F66625000E70F2 /* UserProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C135FF23F66625000E70F2 /* UserProfileDataModel.swift */; };
 		57D0273E23E1EFD20078460D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D0273D23E1EFD20078460D /* AppDelegate.swift */; };
 		57D0274223E1EFD20078460D /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D0274123E1EFD20078460D /* FriendViewController.swift */; };
 		57D0274523E1EFD20078460D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D0274323E1EFD20078460D /* Main.storyboard */; };
@@ -37,7 +38,7 @@
 		57D0274A23E1EFD50078460D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57D0274823E1EFD50078460D /* LaunchScreen.storyboard */; };
 		57E1708523E2A68400871888 /* FriendCompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */; };
 		57E1708723E2AFF100871888 /* FriendPersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E1708623E2AFF100871888 /* FriendPersonalTableViewCell.swift */; };
-		E4043FF53F6CA636B5F507E0 /* libPods-RickM+.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */; };
+		8A04029CD2FEE9B2A53BAEA3 /* Pods_RickM_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FFA6A6D8392CFCF05B94E4E /* Pods_RickM_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyGroupTableViewCell.swift; sourceTree = "<group>"; };
+		57C135FF23F66625000E70F2 /* UserProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDataModel.swift; sourceTree = "<group>"; };
 		57D0273A23E1EFD20078460D /* RickM+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RickM+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D0273D23E1EFD20078460D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57D0274123E1EFD20078460D /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 		57D0274B23E1EFD50078460D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57E1708423E2A68400871888 /* FriendCompanyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyTableViewCell.swift; sourceTree = "<group>"; };
 		57E1708623E2AFF100871888 /* FriendPersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPersonalTableViewCell.swift; sourceTree = "<group>"; };
-		9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RickM+.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FFA6A6D8392CFCF05B94E4E /* Pods_RickM_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickM_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4043FF53F6CA636B5F507E0 /* libPods-RickM+.a in Frameworks */,
+				8A04029CD2FEE9B2A53BAEA3 /* Pods_RickM_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				5759A6A823F29449004517A2 /* KeyModel.swift */,
+				57C135FF23F66625000E70F2 /* UserProfileDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,7 +272,7 @@
 		6B3F5760F3AC8C71E5A9CC20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9D7CC91E98F6661CD99718EF /* libPods-RickM+.a */,
+				5FFA6A6D8392CFCF05B94E4E /* Pods_RickM_.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,7 +297,7 @@
 				57D0273623E1EFD20078460D /* Sources */,
 				57D0273723E1EFD20078460D /* Frameworks */,
 				57D0273823E1EFD20078460D /* Resources */,
-				693552DAEACD41422C1B83B2 /* [CP] Copy Pods Resources */,
+				E8D148C659B230B78FD8EEF2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,21 +381,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		693552DAEACD41422C1B83B2 /* [CP] Copy Pods Resources */ = {
+		E8D148C659B230B78FD8EEF2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RickM+/Pods-RickM+-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -402,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57C1360023F66625000E70F2 /* UserProfileDataModel.swift in Sources */,
 				575ACCAA23EA575D000842F2 /* ChatMainViewController.swift in Sources */,
 				57545DE823F1261700B26093 /* SelfInformationViewController.swift in Sources */,
 				57E1708523E2A68400871888 /* FriendCompanyTableViewCell.swift in Sources */,
