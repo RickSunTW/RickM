@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import Kingfisher
 
 class SelfInformationViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -172,7 +173,15 @@ extension SelfInformationViewController: UserProfileManagerDelegate {
             self.phoneNumberLabel.text = didgetUserData.phoneNumber
             
             self.mIDLabel.text = didgetUserData.mID
-
+            
+            guard let url = URL(string: didgetUserData.photoURL) else {
+                return print("URL Error")
+            }
+            
+            let resource = ImageResource(downloadURL: url)
+            
+            self.selfImageBtn.kf.setImage(with: resource, for: .normal)
+            
             
         }
         

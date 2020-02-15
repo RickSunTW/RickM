@@ -129,3 +129,39 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+
+extension FriendViewController: UserProfileManagerDelegate {
+    
+    func manager(_ manager: UserProfileManager, didgetUserData: Users) {
+        
+        DispatchQueue.main.async {
+            
+//            self.nameLabel.text = didgetUserData.name
+//
+//            self.statusLabel.text = didgetUserData.status
+//
+//            self.phoneNumberLabel.text = didgetUserData.phoneNumber
+//
+//            self.mIDLabel.text = didgetUserData.mID
+//
+//            guard let url = URL(string: didgetUserData.photoURL) else {
+//                return print("URL Error")
+//            }
+//
+//            let resource = ImageResource(downloadURL: url)
+//
+//            self.selfImageBtn.kf.setImage(with: resource, for: .normal)
+//            
+            
+        }
+        
+    }
+    
+    func manager(_ manager: UserProfileManager, didFailWith error: Error) {
+        
+        print(error.localizedDescription)
+        
+    }
+    
+}
