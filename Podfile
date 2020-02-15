@@ -13,5 +13,6 @@ pod 'FirebaseCore'
 pod 'FirebaseFirestore'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Storage'
+pod 'Kingfisher', '~> 5.0'
 
 end

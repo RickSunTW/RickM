@@ -22,7 +22,9 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     @IBAction func setSelfImageAction(_ sender: UIButton) {
         
         let setImageController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
         let cameraAction = UIAlertAction(title: "開啟相機拍照", style: .default) { (_) in
+            
             self.camera()
             //info.plist 修改Localization native development region -> $(DEVELOPMENT_LANGUAGE)
         }
@@ -33,30 +35,46 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
             sender.setImage(UIImage(named: "photo"), for: .normal)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
         setImageController.addAction(cameraAction)
+        
         setImageController.addAction(libraryAction)
+        
         setImageController.addAction(deleteAction)
+        
         setImageController.addAction(cancelAction)
+        
         present(setImageController, animated: true, completion: nil)
+        
     }
     
     @IBAction func changeNameAction(_ sender: UIButton) {
+        
         self.performSegue(withIdentifier: "ChangeName", sender: nil)
-                UpdateSelfData()
+        
     }
     
     @IBAction func changeStatusAction(_ sender: UIButton) {
+        
         self.performSegue(withIdentifier: "ChangeStatus", sender: nil)
-                DeleteSelfData()
+        
     }
     
     var userProfileManager = UserProfileManager()
+    
     var userProfileData = [Users]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userProfileManager.delegate = self
+        
+        //        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
         userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
         
@@ -67,14 +85,22 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     func photopicker(){
         
         let photoController = UIImagePickerController()
+        
         photoController.delegate = self
+        
         photoController.sourceType = .photoLibrary
+        
         present(photoController, animated: true, completion: nil)
+        
     }
     func camera(){
+        
         let cameraController = UIImagePickerController()
+        
         cameraController.delegate = self
+        
         cameraController.sourceType = .camera
+        
         present(cameraController, animated: true, completion: nil)
     }
     
@@ -90,61 +116,72 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         dismiss(animated: true, completion: nil)
         
         let uniqueString = UUID().uuidString
+        
         let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(uniqueString).jpg")
         
         let uploadData = selectedImageFormPicker?.pngData()
+        
         let metaData = StorageMetadata()
-        metaData.contentType = "image/png"
+        
+        metaData.contentType = "image/jpg"
         
         storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
             if error != nil {
                 print("error")
                 return
-            } else {
-                storageRef.downloadURL { (url, error) in
-                    url
+            }
+            else { storageRef.downloadURL { (url, error) in
+                guard let photoURL = url?.absoluteURL else { return }
+                self.db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                    "photoURL":"\(photoURL)",
+                ], merge: true)
+                
                 }
             }
         }
     }
-    
-    func UpdateSelfData() {
-        
-        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
-            "name":"內湖洲子魚",
-            "心情":"尚可"
-        ], merge: true)
-        
-    }
-    
-    func DeleteSelfData(){
-        db.collection("Users").document("\(UserUid.share.logInUserUid)").updateData(["心情":FieldValue.delete()])
-        
-        
-    }
-    
 }
 
+//func UpdateSelfData() {
+//
+//    db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+//        "name":"內湖洲子魚",
+//        "心情":"尚可"
+//    ], merge: true)
+//
+//}
+//
+//func DeleteSelfData(){
+//
+//    db.collection("Users").document("\(UserUid.share.logInUserUid)").updateData(["心情":FieldValue.delete()])
+//
+//}
+//
+//}
 
 extension SelfInformationViewController: UserProfileManagerDelegate {
+    
     func manager(_ manager: UserProfileManager, didgetUserData: Users) {
         
         DispatchQueue.main.async {
             
             self.nameLabel.text = didgetUserData.name
+            
             self.statusLabel.text = didgetUserData.status
+            
             self.phoneNumberLabel.text = didgetUserData.phoneNumber
+            
             self.mIDLabel.text = didgetUserData.mID
-            
-            
-            
+
             
         }
+        
     }
     
     func manager(_ manager: UserProfileManager, didFailWith error: Error) {
+        
         print(error.localizedDescription)
+        
     }
-    
     
 }

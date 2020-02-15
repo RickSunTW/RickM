@@ -835,8 +835,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bs9-W6-aGm">
                                 <rect key="frame" x="0.0" y="234" width="414" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RIckSun" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2q-SW-9Bf">
-                                        <rect key="frame" x="10" y="9.5" width="62.5" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2q-SW-9Bf">
+                                        <rect key="frame" x="10" y="20" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -860,7 +860,7 @@
                                     <constraint firstItem="OI1-yY-WLR" firstAttribute="centerY" secondItem="Bs9-W6-aGm" secondAttribute="centerY" id="7gH-Ex-g36"/>
                                     <constraint firstItem="S2q-SW-9Bf" firstAttribute="centerY" secondItem="Bs9-W6-aGm" secondAttribute="centerY" id="9tR-4d-uXh"/>
                                     <constraint firstItem="S2q-SW-9Bf" firstAttribute="leading" secondItem="Bs9-W6-aGm" secondAttribute="leading" constant="10" id="KOV-Sm-4mt"/>
-                                    <constraint firstItem="OI1-yY-WLR" firstAttribute="leading" relation="lessThanOrEqual" secondItem="S2q-SW-9Bf" secondAttribute="trailing" constant="241.5" id="Ssf-BV-x7l"/>
+                                    <constraint firstItem="OI1-yY-WLR" firstAttribute="leading" relation="lessThanOrEqual" secondItem="S2q-SW-9Bf" secondAttribute="trailing" constant="350" id="Ssf-BV-x7l"/>
                                     <constraint firstAttribute="trailing" secondItem="OI1-yY-WLR" secondAttribute="trailing" constant="10" id="a2t-Dz-xB1"/>
                                     <constraint firstAttribute="height" constant="40" id="dau-1h-Uu6"/>
                                 </constraints>
@@ -874,8 +874,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zi-qn-uxF">
                                 <rect key="frame" x="0.0" y="305" width="414" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I am using M+ app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jz-aP-R92">
-                                        <rect key="frame" x="10" y="9.5" width="141" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jz-aP-R92">
+                                        <rect key="frame" x="10" y="20" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -896,7 +896,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="yxZ-E7-z4n" firstAttribute="leading" relation="lessThanOrEqual" secondItem="9jz-aP-R92" secondAttribute="trailing" constant="163" id="3TT-h8-uUR"/>
+                                    <constraint firstItem="yxZ-E7-z4n" firstAttribute="leading" relation="lessThanOrEqual" secondItem="9jz-aP-R92" secondAttribute="trailing" priority="750" constant="350" id="3TT-h8-uUR"/>
                                     <constraint firstItem="yxZ-E7-z4n" firstAttribute="centerY" secondItem="0zi-qn-uxF" secondAttribute="centerY" id="dnI-Fc-ntm"/>
                                     <constraint firstAttribute="trailing" secondItem="yxZ-E7-z4n" secondAttribute="trailing" constant="10" id="fdd-PX-7mL"/>
                                     <constraint firstItem="9jz-aP-R92" firstAttribute="centerY" secondItem="0zi-qn-uxF" secondAttribute="centerY" id="pE2-q4-07V"/>

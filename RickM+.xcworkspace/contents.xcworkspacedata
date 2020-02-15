@@ -4,6 +4,177 @@
    <FileRef
       location = "group:RickM+.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:RickM+"
+      name = "RickM+">
+      <Group
+         location = "group:RickM+/Resources"
+         name = "Resources">
+         <FileRef
+            location = "group:RickM+/Resources/101APB.ttf">
+         </FileRef>
+         <FileRef
+            location = "group:RickM+/Resources/VNI-Ongdo.ttf">
+         </FileRef>
+         <FileRef
+            location = "group:RickM+/Resources/hlsimple.ttf">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:RickM+/Controller"
+         name = "Controller">
+         <Group
+            location = "group:RickM+/Controller/LogInUP"
+            name = "LogInUP">
+            <FileRef
+               location = "group:RickM+/Controller/LogInUP/LogInViewController.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/Controller/Friend"
+            name = "Friend">
+            <FileRef
+               location = "group:RickM+/Controller/Friend/FriendViewController.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/Controller/Friend/AddFriendOrGroupViewController.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/Controller/Friend/CreateGroupViewController.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/Controller/Gift"
+            name = "Gift">
+            <FileRef
+               location = "group:RickM+/Controller/Gift/GiftViewController.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/Controller/Chat"
+            name = "Chat">
+            <FileRef
+               location = "group:RickM+/Controller/Chat/ChatMainViewController.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/Controller/More"
+            name = "More">
+            <FileRef
+               location = "group:RickM+/Controller/More/MoreViewController.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/Controller/More/SelfInformationViewController.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/Controller/More/ChangeNamwViewController.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/Controller/More/ChangeStatusViewController.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:RickM+/View"
+         name = "View">
+         <Group
+            location = "group:RickM+/View/More"
+            name = "More">
+            <FileRef
+               location = "group:RickM+/View/More/MoreCollectionViewCell.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/View/More/DefaultStatusTableViewCell.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/View/Chat"
+            name = "Chat">
+            <FileRef
+               location = "group:RickM+/View/Chat/ChatListTableViewCell.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/View/GIft"
+            name = "GIft">
+            <FileRef
+               location = "group:RickM+/View/GIft/GiftImageCollectionViewCell.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/View/GIft/GiftProductListTableViewCell.swift">
+            </FileRef>
+            <FileRef
+               location = "group:RickM+/View/GIft/ProductItemsCollectionViewCell.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RickM+/View/Friend"
+            name = "Friend">
+            <Group
+               location = "group:RickM+/View/Friend/SearchPage"
+               name = "SearchPage">
+               <FileRef
+                  location = "group:RickM+/View/Friend/SearchPage/SearchFriendTableViewCell.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:RickM+/View/Friend/FriendPage"
+               name = "FriendPage">
+               <FileRef
+                  location = "group:RickM+/View/Friend/FriendPage/FriendCompanyGroupTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:RickM+/View/Friend/FriendPage/FriendPersonalTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:RickM+/View/Friend/FriendPage/FriendCompanyTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:RickM+/View/Friend/FriendPage/FriendGroupTableViewCell.swift">
+               </FileRef>
+            </Group>
+         </Group>
+      </Group>
+      <Group
+         location = "group:RickM+/Model"
+         name = "Model">
+         <FileRef
+            location = "group:RickM+/Model/KeyModel.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RickM+/Model/UserProfileDataModel.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RickM+/Model/UserProfileManager.swift">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:RickM+/AppDelegate.swift">
+      </FileRef>
+      <Group
+         location = "group:RickM+"
+         name = "Main.storyboard">
+         <FileRef
+            location = "group:RickM+/Base.lproj/Main.storyboard">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:RickM+/Assets.xcassets">
+      </FileRef>
+      <Group
+         location = "group:RickM+"
+         name = "LaunchScreen.storyboard">
+         <FileRef
+            location = "group:RickM+/Base.lproj/LaunchScreen.storyboard">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:RickM+/Info.plist">
+      </FileRef>
+      <FileRef
+         location = "group:RickM+/GoogleService-Info.plist">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

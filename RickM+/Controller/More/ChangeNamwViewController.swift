@@ -12,19 +12,18 @@ import FirebaseFirestoreSwift
 
 class ChangeNamwViewController: UIViewController {
     
+    
     @IBOutlet weak var setNameTextField: UITextField!
     
     @IBAction func setNameBtnAction(_ sender: UIButton) {
-        
+    
         let db = Firestore.firestore()
-        func UpdateSelfData() {
-            
+     
+        guard let text = setNameTextField.text else { return }
             db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
-                "name":"\(setNameTextField)",
+                "name":"\(text)",
             ], merge: true)
             
-        }
-        
     }
     
     override func viewDidLoad() {

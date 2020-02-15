@@ -22,6 +22,8 @@ class UserProfileManager {
     
     weak var delegate: UserProfileManagerDelegate?
     
+    var fireUploadDic: [String:Any]?
+    
     func getUserData(id: String) {
         
         let db = Firestore.firestore()
@@ -43,7 +45,9 @@ class UserProfileManager {
                         let user = try document.data(as: Users.self, decoder: Firestore.Decoder())
                         
                         self.delegate?.manager(self, didgetUserData: user!)
-                        
+                        if let fireUploadDic = user?.photoURL as? [String: Any] {
+                            
+                        }
                         
                     } catch {
                         
