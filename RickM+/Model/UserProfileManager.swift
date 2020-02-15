@@ -8,7 +8,7 @@
 
 import Foundation
 import Firebase
-import FirebaseFirestoreSwift
+//import FirebaseFirestoreSwift
 
 protocol UserProfileManagerDelegate: AnyObject {
     

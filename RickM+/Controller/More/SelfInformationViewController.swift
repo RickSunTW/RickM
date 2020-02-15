@@ -63,7 +63,7 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     var userProfileManager = UserProfileManager()
     
-    var userProfileData = [Users]()
+//    var userProfileData = [Users]()
     
     
     override func viewDidLoad() {

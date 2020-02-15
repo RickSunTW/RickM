@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Kingfisher
 
 class FriendViewController: UIViewController {
     @IBOutlet weak var friendTableView: UITableView!
@@ -15,13 +16,23 @@ class FriendViewController: UIViewController {
     @IBAction func addFriendOrGroupBtn(_ sender: Any) {
         performSegue(withIdentifier: "AddFriendOrGroup", sender: nil)
     }
-    
+    var userProfileManager = UserProfileManager()
+    var userData:Users?
+    //    var userProfileData = [Users]()
     override func viewDidLoad() {
         super.viewDidLoad()
         friendTableView.delegate = self
         friendTableView.dataSource = self
         friendTableView.separatorStyle = .none
+        userProfileManager.delegate = self
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
+        
     }
 }
 
@@ -48,9 +59,28 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
             
-            cell.friendPersonalName.text = "Rick"
+            cell.friendPersonalName.text = userData?.name
             
-            cell.friendPersonalStatus.text = "努力寫Code中"
+            cell.friendPersonalStatus.text = userData?.status
+            
+            if let personalPhoto = userData?.photoURL{
+                guard let url = URL(string: personalPhoto) else {
+                    return UITableViewCell()
+                }
+                
+                let resource = ImageResource(downloadURL: url)
+                
+                cell.friendPersonalImage.kf.setImage(with: resource, placeholder: nil)
+                cell.friendPersonalImage.contentMode = .scaleToFill
+                
+            }
+
+            
+//             guard let url = URL(string: userData?.photoURL) else {
+//                         return UITableViewCell()
+//                     }
+//
+            
             
             return cell
             
@@ -128,6 +158,22 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            
+            
+//            ShowUserProfile
+            
+            self.performSegue(withIdentifier: "ShowUserProfile", sender: nil)
+            
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserProfileVC")
+//            
+//            vc?.modalPresentationStyle = .fullScreen
+//            
+//            self.present(vc!, animated: true, completion: nil)
+        }
+    }
 }
 
 
@@ -135,26 +181,8 @@ extension FriendViewController: UserProfileManagerDelegate {
     
     func manager(_ manager: UserProfileManager, didgetUserData: Users) {
         
-        DispatchQueue.main.async {
-            
-//            self.nameLabel.text = didgetUserData.name
-//
-//            self.statusLabel.text = didgetUserData.status
-//
-//            self.phoneNumberLabel.text = didgetUserData.phoneNumber
-//
-//            self.mIDLabel.text = didgetUserData.mID
-//
-//            guard let url = URL(string: didgetUserData.photoURL) else {
-//                return print("URL Error")
-//            }
-//
-//            let resource = ImageResource(downloadURL: url)
-//
-//            self.selfImageBtn.kf.setImage(with: resource, for: .normal)
-//            
-            
-        }
+        self.userData = didgetUserData
+        self.friendTableView.reloadData()
         
     }
     

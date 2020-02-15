@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import FirebaseFirestoreSwift
+//import FirebaseFirestoreSwift
 
 class ChangeNamwViewController: UIViewController {
     
@@ -23,7 +23,12 @@ class ChangeNamwViewController: UIViewController {
             db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
                 "name":"\(text)",
             ], merge: true)
-            
+        
+//        self.performSegue(withIdentifier: "ChangeNameBackUserProfile", sender: nil)
+        
+        navigationController?.popViewController(animated: true)
+//            ChangeNameBackUserProfile
+//        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
