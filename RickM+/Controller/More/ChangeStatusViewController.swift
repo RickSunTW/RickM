@@ -12,6 +12,35 @@ import FirebaseFirestoreSwift
 
 class ChangeStatusViewController: UIViewController {
     @IBOutlet weak var defaultStatusTableView: UITableView!
+    @IBOutlet weak var statusChangeTextField: UITextField!
+    @IBAction func upDatedStatusBtnAction(_ sender: UIButton) {
+        if statusChangeTextField.text != "" {
+            
+            if choiceStatus != nil {
+                guard let updatedStatus = choiceStatus else {
+                    return
+                }
+                db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                    "status":String("\(updatedStatus)"),
+                ], merge: true)
+                
+            } else {
+                guard let updatedStatus = statusChangeTextField.text else {
+                    return
+                }
+                db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                    "status":String("\(updatedStatus)"),
+                ], merge: true)
+            }
+            
+            navigationController?.popViewController(animated: true)
+        }
+        
+        return print("error")
+        
+    }
+    
+    var choiceStatus: String?
     
     var defaultStatus = ["忙碌中",
                          "看電影中",
@@ -26,7 +55,7 @@ class ChangeStatusViewController: UIViewController {
         super.viewDidLoad()
         defaultStatusTableView.dataSource = self
         defaultStatusTableView.delegate = self
-//        defaultStatusTableView.separatorStyle = .none
+        //        defaultStatusTableView.separatorStyle = .none
         
         
         // Do any additional setup after loading the view.
@@ -61,17 +90,18 @@ extension ChangeStatusViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultStatus", for: indexPath) as? DefaultStatusTableViewCell else { return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultStatus", for: indexPath) as? DefaultStatusTableViewCell else { return UITableViewCell() }
+        
         cell.defaultStatusLabel.text = defaultStatus[indexPath.row]
+        
         return cell
     }
     
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        
-//        return "預設狀態"
-//        
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        choiceStatus = defaultStatus[indexPath.row]
+        
+        statusChangeTextField.text = choiceStatus
+        
+    }
     
 }

@@ -174,17 +174,21 @@ extension SelfInformationViewController: UserProfileManagerDelegate {
             
             self.mIDLabel.text = didgetUserData.mID
             
-            guard let url = URL(string: didgetUserData.photoURL) else {
-                return print("URL Error")
+            if didgetUserData.photoURL != nil {
+                guard let url = URL(string: didgetUserData.photoURL!) else {
+                    return print("URL Error")
+                }
+                let resource = ImageResource(downloadURL: url)
+                
+                self.selfImageBtn.kf.setImage(with: resource, for: .normal)
             }
-            
-            let resource = ImageResource(downloadURL: url)
-            
-            self.selfImageBtn.kf.setImage(with: resource, for: .normal)
-            
-            
-        }
+//            else if didgetUserData.photoURL == nil {
+//            
+//                self.selfImageBtn.setImage(UIImage(named: "photo"), for: .normal)
+//
+//        }
         
+    }
     }
     
     func manager(_ manager: UserProfileManager, didFailWith error: Error) {

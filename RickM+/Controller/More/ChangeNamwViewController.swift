@@ -24,11 +24,8 @@ class ChangeNamwViewController: UIViewController {
                 "name":"\(text)",
             ], merge: true)
         
-//        self.performSegue(withIdentifier: "ChangeNameBackUserProfile", sender: nil)
-        
         navigationController?.popViewController(animated: true)
-//            ChangeNameBackUserProfile
-//        dismiss(animated: true, completion: nil)
+
     }
     
     override func viewDidLoad() {

@@ -46,9 +46,7 @@ class UserProfileManager {
                         
                         
                         self.delegate?.manager(self, didgetUserData: user!)
-//                        if let fireUploadDic = user?.photoURL as? [String: Any] {
-//
-//                        }
+
                         
                     } catch {
                         

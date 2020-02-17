@@ -103,12 +103,12 @@ class LogInViewController: UIViewController {
         let db = Firestore.firestore()
         db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
             "email": "\(accountTtextField.text!)",
-            "friends": ["rick@gmail.com", "violat3049@gmail.com"],
+            "friends": ["rick0120@hotmail.com", "poye@gmail.com"],
             "id": "\(UserUid.share.logInUserUid)",
-            "mID": "Lisa520",
-            "name": "Lisa🐑",
-            "phoneNumber": "+886928666123",
-            "status": "魔力寶貝很好玩"
+            "mID": "Hamburger2222",
+            "name": "Hamburger",
+            "phoneNumber": "+886928319320",
+            "status": "魔物獵人玩起來～～"
             ])
         { (error) in
             if let error = error {
