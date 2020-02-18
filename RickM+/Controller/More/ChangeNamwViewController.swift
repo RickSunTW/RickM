@@ -20,7 +20,7 @@ class ChangeNamwViewController: UIViewController {
         let db = Firestore.firestore()
      
         guard let text = setNameTextField.text else { return }
-            db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+            db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
                 "name":"\(text)",
             ], merge: true)
         

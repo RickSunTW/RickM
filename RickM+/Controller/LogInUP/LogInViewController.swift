@@ -33,7 +33,7 @@ class LogInViewController: UIViewController {
                     
                     self.present(alertController, animated: true, completion: nil)
                     if let userUid = Auth.auth().currentUser?.uid {
-                        UserUid.share.logInUserUid = userUid
+                        UserInfo.share.logInUserUid = userUid
                         self.addUserData()
                     }
                     
@@ -71,7 +71,7 @@ class LogInViewController: UIViewController {
                     
                     self.present(vc!, animated: true, completion: nil)
                     if let userUid = Auth.auth().currentUser?.uid {
-                        UserUid.share.logInUserUid = userUid
+                        UserInfo.share.logInUserUid = userUid
                     }
                     
                     
@@ -87,8 +87,6 @@ class LogInViewController: UIViewController {
             }
         }
         //        performSegue(withIdentifier: "SignIn", sender: nil)
-        
-        
     }
     
     
@@ -101,10 +99,10 @@ class LogInViewController: UIViewController {
     }
     func addUserData() {
         let db = Firestore.firestore()
-        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+        db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
             "email": "\(accountTtextField.text!)",
             "friends": ["rick0120@hotmail.com", "poye@gmail.com"],
-            "id": "\(UserUid.share.logInUserUid)",
+            "id": "\(UserInfo.share.logInUserUid)",
             "mID": "Hamburger2222",
             "name": "Hamburger",
             "phoneNumber": "+886928319320",
@@ -118,14 +116,5 @@ class LogInViewController: UIViewController {
         }
 
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+ 
 }

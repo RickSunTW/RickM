@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import Kingfisher
+import Firebase
 
 class FriendViewController: UIViewController {
     @IBOutlet weak var friendTableView: UITableView!
@@ -26,12 +27,16 @@ class FriendViewController: UIViewController {
         friendTableView.separatorStyle = .none
         userProfileManager.delegate = self
         
+        
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
-        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        userProfileManager.getUserData(id: "\(UserInfo.share.logInUserUid)")
         
     }
 }
@@ -44,7 +49,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
         case 0: return 1
         case 1: return 1
         case 2: return 2
-        case 3: return 1
+        case 3: return UserInfo.share.colleagueFriendsName.count
         default: return 0
         }
     }
@@ -74,13 +79,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.friendPersonalImage.contentMode = .scaleToFill
                 
             }
-
-            
-//             guard let url = URL(string: userData?.photoURL) else {
-//                         return UITableViewCell()
-//                     }
-//
-            
             
             return cell
             
@@ -132,9 +130,13 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            cell.friendCompanyName.text = "Lisa"
+            cell.friendCompanyName.text = UserInfo.share.colleagueFriendsName[indexPath.row]
             
-            cell.friendCompanyStatus.text = "text2text2text2text2"
+            cell.friendCompanyStatus.text = UserInfo.share.colleagueFriendsStatus[indexPath.row]
+            
+            cell.friendCompanyImage.kf.setImage(with: UserInfo.share.colleagueFriendsPhoto[indexPath.row])
+            
+            cell.friendCompanyImage.contentMode = .scaleToFill
             
             return cell
             
@@ -163,17 +165,20 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             
             
-//            ShowUserProfile
+            //            ShowUserProfile
             
             self.performSegue(withIdentifier: "ShowUserProfile", sender: nil)
             
-//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserProfileVC")
-//            
-//            vc?.modalPresentationStyle = .fullScreen
-//            
-//            self.present(vc!, animated: true, completion: nil)
+            //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserProfileVC")
+            //
+            //            vc?.modalPresentationStyle = .fullScreen
+            //
+            //            self.present(vc!, animated: true, completion: nil)
         }
     }
+    
+    
+    
 }
 
 
@@ -182,8 +187,12 @@ extension FriendViewController: UserProfileManagerDelegate {
     func manager(_ manager: UserProfileManager, didgetUserData: Users) {
         
         self.userData = didgetUserData
-        self.friendTableView.reloadData()
         
+        userProfileManager.getFriends(friendsemail: UserInfo.share.saveFriends)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.friendTableView.reloadData()
+        }
     }
     
     func manager(_ manager: UserProfileManager, didFailWith error: Error) {

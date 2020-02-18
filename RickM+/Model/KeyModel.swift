@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import Kingfisher
 
 
-class UserUid {
+class UserInfo {
     var logInUserUid = String()
-
-    static let share = UserUid()
+    var saveFriends = [String]()
+    var normalFriendsName = [String]()
+    var normalFriendsStatus = [String]()
+    var normalFriendsPhoto = [ImageResource]()
+    var colleagueFriendsName = [String]()
+    var colleagueFriendsStatus = [String]()
+    var colleagueFriendsPhoto = [ImageResource]()
+    
+    static let share = UserInfo()
     private init(){
         
     }

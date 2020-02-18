@@ -20,7 +20,7 @@ class ChangeStatusViewController: UIViewController {
                 guard let updatedStatus = choiceStatus else {
                     return
                 }
-                db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
                     "status":String("\(updatedStatus)"),
                 ], merge: true)
                 
@@ -28,7 +28,7 @@ class ChangeStatusViewController: UIViewController {
                 guard let updatedStatus = statusChangeTextField.text else {
                     return
                 }
-                db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
                     "status":String("\(updatedStatus)"),
                 ], merge: true)
             }
@@ -74,7 +74,7 @@ class ChangeStatusViewController: UIViewController {
     let db = Firestore.firestore()
     func UpdateSelfData() {
         
-        db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+        db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
             "name":"內湖洲子魚",
             "心情":"尚可"
         ], merge: true)

@@ -77,7 +77,7 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     override func viewDidAppear(_ animated: Bool) {
         
-        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
+        userProfileManager.getUserData(id: "\(UserInfo.share.logInUserUid)")
         
     }
     
@@ -133,7 +133,7 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
             }
             else { storageRef.downloadURL { (url, error) in
                 guard let photoURL = url?.absoluteURL else { return }
-                self.db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
+                self.db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
                     "photoURL":"\(photoURL)",
                 ], merge: true)
                 
