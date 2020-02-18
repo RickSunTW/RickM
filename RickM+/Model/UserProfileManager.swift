@@ -48,16 +48,12 @@ class UserProfileManager {
                         }
                         
                         UserInfo.share.saveFriends = []
-                        UserInfo.share.colleagueFriendsName = []
-                        UserInfo.share.colleagueFriendsStatus = []
                         UserInfo.share.colleagueFriendsPhoto = []
-                        
                         UserInfo.share.saveFriends = loadingFriends
                         
                         guard let userInfo = user else {return}
                         
                         self.delegate?.manager(self, didgetUserData: userInfo)
-                        
                         
                     } catch {
                         
@@ -70,6 +66,8 @@ class UserProfileManager {
     }
     
     func getFriends(friendsemail: [String]) {
+        
+         UserInfo.share.friendList = []
         
         for email in friendsemail {
             
@@ -93,37 +91,10 @@ class UserProfileManager {
                             let friendInfo = try document.data(as: Users.self, decoder: Firestore.Decoder())
                             
                             guard let userInfo = friendInfo else {return}
-                            guard let userPhotoURL = userInfo.photoURL else {return}
-                            guard let url = URL(string: userPhotoURL)else {return}
-                            let resource = ImageResource(downloadURL: url)
                             
-
+                            UserInfo.share.friendList.append(userInfo)
                             
-                            
-                            if userInfo.colleague {
-                                
-                                UserInfo.share.colleagueFriendsName.append(userInfo.name)
-                                UserInfo.share.colleagueFriendsStatus.append(userInfo.status)
-                                UserInfo.share.colleagueFriendsPhoto.append(resource)
-                                
-                            } else {
-                                UserInfo.share.normalFriendsName.append(userInfo.name)
-                                UserInfo.share.normalFriendsStatus.append(userInfo.status)
-                                UserInfo.share.normalFriendsPhoto.append(resource)
-                                
-                            }
-                            
-//                            print("\(UserInfo.share.colleagueFriendsName)")
-//                            print("\(UserInfo.share.colleagueFriendsStatus)")
-//                            print("\(UserInfo.share.colleagueFriendsPhoto)")
-                            
-                            
-//                            print("\(UserInfo.share.normalFriendsName)")
-//                            print("\(UserInfo.share.normalFriendsStatus)")
-//                            print("\(UserInfo.share.normalFriendsPhoto)")
-                            
-                            
-                            
+                    
                         } catch {
                             
                             print(error)

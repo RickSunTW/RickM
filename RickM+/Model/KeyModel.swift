@@ -13,12 +13,9 @@ import Kingfisher
 class UserInfo {
     var logInUserUid = String()
     var saveFriends = [String]()
-    var normalFriendsName = [String]()
-    var normalFriendsStatus = [String]()
     var normalFriendsPhoto = [ImageResource]()
-    var colleagueFriendsName = [String]()
-    var colleagueFriendsStatus = [String]()
     var colleagueFriendsPhoto = [ImageResource]()
+    var friendList = [Users]()
     
     static let share = UserInfo()
     private init(){

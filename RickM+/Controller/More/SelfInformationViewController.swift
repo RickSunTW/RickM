@@ -63,15 +63,10 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     var userProfileManager = UserProfileManager()
     
-//    var userProfileData = [Users]()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userProfileManager.delegate = self
-        
-        //        userProfileManager.getUserData(id: "\(UserUid.share.logInUserUid)")
         
     }
     
@@ -116,9 +111,8 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         
         dismiss(animated: true, completion: nil)
         
-        let uniqueString = UUID().uuidString
         
-        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(uniqueString).jpg")
+        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(UserInfo.share.logInUserUid).jpg")
         
         let uploadData = selectedImageFormPicker?.pngData()
         
@@ -131,12 +125,13 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
                 print("error")
                 return
             }
-            else { storageRef.downloadURL { (url, error) in
-                guard let photoURL = url?.absoluteURL else { return }
-                self.db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
-                    "photoURL":"\(photoURL)",
-                ], merge: true)
-                
+            else {
+                storageRef.downloadURL { (url, error) in
+                    guard let photoURL = url?.absoluteURL else { return }
+                    self.db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
+                        "photoURL":"\(photoURL)",
+                    ], merge: true)
+                    
                 }
             }
         }
@@ -182,13 +177,13 @@ extension SelfInformationViewController: UserProfileManagerDelegate {
                 
                 self.selfImageBtn.kf.setImage(with: resource, for: .normal)
             }
-//            else if didgetUserData.photoURL == nil {
-//            
-//                self.selfImageBtn.setImage(UIImage(named: "photo"), for: .normal)
-//
-//        }
-        
-    }
+            //            else if didgetUserData.photoURL == nil {
+            //
+            //                self.selfImageBtn.setImage(UIImage(named: "photo"), for: .normal)
+            //
+            //        }
+            
+        }
     }
     
     func manager(_ manager: UserProfileManager, didFailWith error: Error) {

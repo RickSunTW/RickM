@@ -49,7 +49,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
         case 0: return 1
         case 1: return 1
         case 2: return 2
-        case 3: return UserInfo.share.colleagueFriendsName.count
+        case 3: return UserInfo.share.friendList.count
         default: return 0
         }
     }
@@ -64,6 +64,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
             
+            
             cell.friendPersonalName.text = userData?.name
             
             cell.friendPersonalStatus.text = userData?.status
@@ -73,9 +74,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
                 
-                let resource = ImageResource(downloadURL: url)
+                //                let resource = ImageResource(downloadURL: url)
                 
-                cell.friendPersonalImage.kf.setImage(with: resource, placeholder: nil)
+                cell.friendPersonalImage.kf.setImage(with: url)
                 cell.friendPersonalImage.contentMode = .scaleToFill
                 
             }
@@ -130,15 +131,56 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            cell.friendCompanyName.text = UserInfo.share.colleagueFriendsName[indexPath.row]
+            guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "FriendPersonal", for: indexPath) as? FriendPersonalTableViewCell else {
+                
+                return UITableViewCell()
+            }
             
-            cell.friendCompanyStatus.text = UserInfo.share.colleagueFriendsStatus[indexPath.row]
+            if UserInfo.share.friendList[indexPath.row].colleague {
+                
+                cell.friendCompanyName.text = UserInfo.share.friendList[indexPath.row].name
+                
+                cell.friendCompanyStatus.text = UserInfo.share.friendList[indexPath.row].status
+                
+                if let friendsPhoto = UserInfo.share.friendList[indexPath.row].photoURL {
+                    
+                    guard let url = URL(string: friendsPhoto) else {
+                        return UITableViewCell()
+                    }
+                    cell.friendCompanyImage.kf.setImage(with: url)
+                    
+                    cell.friendCompanyImage.contentMode = .scaleToFill
+                    
+                    
+                }
+                
+                return cell
+                
+            } else {
+                
+                cell2.friendPersonalName.text = UserInfo.share.friendList[indexPath.row].name
+                
+                cell2.friendPersonalStatus.text = UserInfo.share.friendList[indexPath.row].status
+                
+                if let friendsPhoto = UserInfo.share.friendList[indexPath.row].photoURL {
+                    
+                    guard let url = URL(string: friendsPhoto) else {
+                        return UITableViewCell()
+                    }
+                    cell2.friendPersonalImage.kf.setImage(with: url)
+                    
+                    cell2.friendPersonalImage.contentMode = .scaleToFill
+                    
+                    
+                }
+                
+                return cell2
+                
+                
+                
+                
+            }
             
-            cell.friendCompanyImage.kf.setImage(with: UserInfo.share.colleagueFriendsPhoto[indexPath.row])
-            
-            cell.friendCompanyImage.contentMode = .scaleToFill
-            
-            return cell
             
         }
         
@@ -154,7 +196,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 2: return "群組(2)"
             
-        case 3: return "好友(1)"
+        case 3: return "好友(\(UserInfo.share.friendList.count))"
             
         default: return nil
             
