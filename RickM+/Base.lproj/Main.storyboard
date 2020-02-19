@@ -1512,28 +1512,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chatTableView" destination="pGB-rc-qOj" id="Cpr-uQ-pir"/>
-                        <segue destination="5Fs-vT-rP0" kind="show" identifier="aaaaaaa" id="67D-XQ-Ghe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C4n-ZX-UQh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1081.1594202898552" y="1814.7321428571427"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="UWd-uI-jYA">
-            <objects>
-                <viewController id="5Fs-vT-rP0" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5Vu-7c-LUH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="AfU-Nw-sX1"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="AGn-le-sPE"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Q0-0g-Q3U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1083" y="2594"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gFv-yh-q6s">

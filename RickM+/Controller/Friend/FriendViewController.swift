@@ -27,16 +27,12 @@ class FriendViewController: UIViewController {
         friendTableView.separatorStyle = .none
         userProfileManager.delegate = self
         
-        
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         userProfileManager.getUserData(id: "\(UserInfo.share.logInUserUid)")
+        self.tabBarController?.tabBar.isHidden = false
         
     }
 }
@@ -171,17 +167,12 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     cell2.friendPersonalImage.contentMode = .scaleToFill
                     
-                    
                 }
                 
                 return cell2
                 
-                
-                
-                
             }
-            
-            
+    
         }
         
         return UITableViewCell()
@@ -206,23 +197,25 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             
-            
-            //            ShowUserProfile
-            
             self.performSegue(withIdentifier: "ShowUserProfile", sender: nil)
             
-            //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserProfileVC")
-            //
-            //            vc?.modalPresentationStyle = .fullScreen
-            //
-            //            self.present(vc!, animated: true, completion: nil)
+        } else {
+            
+            showChatController()
+           
+            
         }
+
     }
     
-    
+    func showChatController() {
+        
+        let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
+        navigationController?.pushViewController(chatLogControler, animated: true)
+
+    }
     
 }
-
 
 extension FriendViewController: UserProfileManagerDelegate {
     

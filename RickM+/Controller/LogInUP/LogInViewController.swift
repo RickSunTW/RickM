@@ -11,6 +11,8 @@ import Firebase
 
 class LogInViewController: UIViewController {
     
+    
+    
     @IBOutlet weak var mainTitleLabel: UILabel!
     @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var accountTtextField: UITextField!

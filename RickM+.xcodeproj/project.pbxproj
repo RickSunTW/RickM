@@ -25,6 +25,8 @@
 		575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AC1E523ED354600CC16DD /* LogInViewController.swift */; };
 		575ACCAA23EA575D000842F2 /* ChatMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCA923EA575D000842F2 /* ChatMainViewController.swift */; };
 		575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */; };
+		575B898723FD020300610045 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898623FD020300610045 /* ChatLogController.swift */; };
+		575B898923FD1B9400610045 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898823FD1B9400610045 /* TabBarController.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
@@ -63,6 +65,8 @@
 		575AC1E523ED354600CC16DD /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		575ACCA923EA575D000842F2 /* ChatMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMainViewController.swift; sourceTree = "<group>"; };
 		575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
+		575B898623FD020300610045 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		575B898823FD1B9400610045 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				575ACCA923EA575D000842F2 /* ChatMainViewController.swift */,
+				575B898623FD020300610045 /* ChatLogController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				575AC1E823ED355E00CC16DD /* Gift */,
 				575AC1E923ED356F00CC16DD /* Chat */,
 				57545DDF23F1014E00B26093 /* More */,
+				575B898823FD1B9400610045 /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -411,6 +417,7 @@
 				57C1360023F66625000E70F2 /* UserProfileDataModel.swift in Sources */,
 				575ACCAA23EA575D000842F2 /* ChatMainViewController.swift in Sources */,
 				57C1360223F6730F000E70F2 /* UserProfileManager.swift in Sources */,
+				575B898923FD1B9400610045 /* TabBarController.swift in Sources */,
 				57545DE823F1261700B26093 /* SelfInformationViewController.swift in Sources */,
 				57E1708523E2A68400871888 /* FriendCompanyTableViewCell.swift in Sources */,
 				57E1708723E2AFF100871888 /* FriendPersonalTableViewCell.swift in Sources */,
@@ -432,6 +439,7 @@
 				575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */,
 				57D0273E23E1EFD20078460D /* AppDelegate.swift in Sources */,
 				57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */,
+				575B898723FD020300610045 /* ChatLogController.swift in Sources */,
 				5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
