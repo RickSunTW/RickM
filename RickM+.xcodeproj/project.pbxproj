@@ -579,13 +579,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23Z6JMBK32;
+				DEVELOPMENT_TEAM = C7LN2SD44B;
 				INFOPLIST_FILE = "RickM+/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.RickSunworkTW.RickM-";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mplusapp.mplus.aa.ShareExtension.RickM-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -599,13 +599,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23Z6JMBK32;
+				DEVELOPMENT_TEAM = C7LN2SD44B;
 				INFOPLIST_FILE = "RickM+/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.RickSunworkTW.RickM-";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mplusapp.mplus.aa.ShareExtension.RickM-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

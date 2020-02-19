@@ -86,6 +86,8 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         
         photoController.sourceType = .photoLibrary
         
+        photoController.allowsEditing = true
+        
         present(photoController, animated: true, completion: nil)
         
     }
@@ -104,7 +106,10 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         
         var selectedImageFormPicker: UIImage?
         
-        if let pickedImage = info[.originalImage] as? UIImage {
+        if let editedImage = info[.editedImage]  as? UIImage {
+            selectedImageFormPicker = editedImage
+            selfImageBtn.setImage(selectedImageFormPicker, for: .normal)
+        } else if let pickedImage = info[.originalImage] as? UIImage {
             selectedImageFormPicker = pickedImage
             selfImageBtn.setImage(selectedImageFormPicker, for: .normal)
         }
@@ -112,7 +117,7 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         dismiss(animated: true, completion: nil)
         
         
-        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(UserInfo.share.logInUserUid).jpg")
+        let storageRef = Storage.storage().reference().child("UserProfilePhoto").child("\(UserInfo.share.logInUserUid).png")
         
         let uploadData = selectedImageFormPicker?.pngData()
         
