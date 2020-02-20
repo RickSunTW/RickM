@@ -17,8 +17,11 @@ class SelectNewChatController: UIViewController {
     
 //    var chatMainViewController: ChatMainViewController?
     
+//    傳值
     var chatHandler: ((Users) -> Void)?
-    var chatMainViewController: ChatMainViewController?
+    
+//    brain
+//    var chatMainViewController: ChatMainViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,15 +94,9 @@ extension SelectNewChatController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.popViewController(animated: true)
         
         let chatFriend = UserInfo.share.friendList[indexPath.row]
-        
-//        print("\(chatFriend)")
-        
-        chatHandler?(chatFriend)
-        
-        self.chatMainViewController?.showChatController()
-            
 
-        
+        chatHandler?(chatFriend)
+
     }
     
 }

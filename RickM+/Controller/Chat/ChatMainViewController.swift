@@ -15,13 +15,7 @@ class ChatMainViewController: UIViewController {
     @IBAction func SelectNewChatBtnAction(_ sender: UIButton) {
         
         performSegue(withIdentifier: "SelectNewChat", sender: nil)
-        
-//        let selectNewChatController = SelectNewChatController()
-//        selectNewChatController.chatMainViewController = self
-//        let navController = UINavigationController(rootViewController: selectNewChatController)
-//        present(navController, animated: true, completion: nil)
-        
-       
+    
     }
    
 
@@ -47,10 +41,14 @@ class ChatMainViewController: UIViewController {
 //
 //    }
     
-    func showChatController() {
+    
+    
+    func showChatController(user: Users) {
 
         let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
         navigationController?.pushViewController(chatLogControler, animated: true)
+        chatLogControler.user = user
+   
 
     }
 
@@ -66,7 +64,8 @@ class ChatMainViewController: UIViewController {
             let vc = segue.destination as? SelectNewChatController
             
             vc?.chatHandler = { [weak self] (chat) in
-                
+                self?.showChatController(user: chat)
+        
                 print("\(chat)")
             
             }

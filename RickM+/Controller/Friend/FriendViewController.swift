@@ -202,7 +202,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else {
             
-            showChatController()
+//            showChatController()
            
             
         }
@@ -210,7 +210,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func showChatController() {
-        
+
         let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
         navigationController?.pushViewController(chatLogControler, animated: true)
 
