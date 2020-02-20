@@ -13,9 +13,18 @@ class ChatMainViewController: UIViewController {
     @IBOutlet weak var chatTableView: UITableView!
     
     @IBAction func SelectNewChatBtnAction(_ sender: UIButton) {
+        
         performSegue(withIdentifier: "SelectNewChat", sender: nil)
+        
+//        let selectNewChatController = SelectNewChatController()
+//        selectNewChatController.chatMainViewController = self
+//        let navController = UINavigationController(rootViewController: selectNewChatController)
+//        present(navController, animated: true, completion: nil)
+        
+       
     }
    
+
     
     @IBAction func sadfasfasfg(_ sender: UIButton) {
         
@@ -29,20 +38,43 @@ class ChatMainViewController: UIViewController {
         chatTableView.delegate = self
         chatTableView.dataSource = self
         chatTableView.separatorStyle = .none
-
+        
         // Do any additional setup after loading the view.
     }
     
+//    func handleNewMessage() {
+//
+//
+//    }
+    
+    func showChatController() {
 
-    /*
-    // MARK: - Navigation
+        let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
+        navigationController?.pushViewController(chatLogControler, animated: true)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.destination is SelectNewChatController {
+            
+            let vc = segue.destination as? SelectNewChatController
+            
+            vc?.chatHandler = { [weak self] (chat) in
+                
+                print("\(chat)")
+            
+            }
+            
+        }
+        
+    }
+    
 
 }
 

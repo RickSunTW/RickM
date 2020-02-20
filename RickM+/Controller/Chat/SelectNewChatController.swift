@@ -11,8 +11,14 @@ import Kingfisher
 
 class SelectNewChatController: UIViewController {
     
+    
+    
     @IBOutlet weak var selectChatTableView: UITableView!
     
+//    var chatMainViewController: ChatMainViewController?
+    
+    var chatHandler: ((Users) -> Void)?
+    var chatMainViewController: ChatMainViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,15 +88,19 @@ extension SelectNewChatController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        showChatController()
+        navigationController?.popViewController(animated: true)
+        
+        let chatFriend = UserInfo.share.friendList[indexPath.row]
+        
+//        print("\(chatFriend)")
+        
+        chatHandler?(chatFriend)
+        
+        self.chatMainViewController?.showChatController()
+            
+
         
     }
     
-    func showChatController() {
-        
-        let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
-        navigationController?.pushViewController(chatLogControler, animated: true)
-        
-    }
 }
 
