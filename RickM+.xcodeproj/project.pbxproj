@@ -27,6 +27,9 @@
 		575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */; };
 		575B898723FD020300610045 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898623FD020300610045 /* ChatLogController.swift */; };
 		575B898923FD1B9400610045 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898823FD1B9400610045 /* TabBarController.swift */; };
+		575B898B23FD36F700610045 /* SelectNewChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898A23FD36F700610045 /* SelectNewChatController.swift */; };
+		575B898D23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */; };
+		575B898F23FD539100610045 /* SelectNewChatWorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
@@ -67,6 +70,9 @@
 		575ACCAB23EA8BEC000842F2 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		575B898623FD020300610045 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		575B898823FD1B9400610045 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		575B898A23FD36F700610045 /* SelectNewChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatController.swift; sourceTree = "<group>"; };
+		575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatFriendTableViewCell.swift; sourceTree = "<group>"; };
+		575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatWorkTableViewCell.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +184,7 @@
 			children = (
 				575ACCA923EA575D000842F2 /* ChatMainViewController.swift */,
 				575B898623FD020300610045 /* ChatLogController.swift */,
+				575B898A23FD36F700610045 /* SelectNewChatController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -239,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */,
+				575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */,
+				575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -427,13 +436,16 @@
 				5759532823E555580060F27E /* AddFriendOrGroupViewController.swift in Sources */,
 				5759BB8D23E594F00037FF3F /* SearchFriendTableViewCell.swift in Sources */,
 				5751C0C323E7C2390027B7FD /* ProductItemsCollectionViewCell.swift in Sources */,
+				575B898F23FD539100610045 /* SelectNewChatWorkTableViewCell.swift in Sources */,
 				57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */,
 				57545DEA23F1387A00B26093 /* ChangeNamwViewController.swift in Sources */,
 				575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */,
 				57545DEC23F1388C00B26093 /* ChangeStatusViewController.swift in Sources */,
 				57545DE623F1097F00B26093 /* MoreViewController.swift in Sources */,
+				575B898B23FD36F700610045 /* SelectNewChatController.swift in Sources */,
 				5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */,
 				575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */,
+				575B898D23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift in Sources */,
 				575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */,
 				57D0274223E1EFD20078460D /* FriendViewController.swift in Sources */,
 				575AC1E623ED354600CC16DD /* LogInViewController.swift in Sources */,

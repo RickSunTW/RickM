@@ -69,9 +69,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let url = URL(string: personalPhoto) else {
                     return UITableViewCell()
                 }
-                
-                //                let resource = ImageResource(downloadURL: url)
-                
+
                 cell.friendPersonalImage.kf.setImage(with: url)
                 cell.friendPersonalImage.contentMode = .scaleToFill
                 
@@ -122,54 +120,57 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if indexPath.section == 3 {
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCompany", for: indexPath) as? FriendCompanyTableViewCell else {
+            guard let friendListWorksCell = tableView.dequeueReusableCell(withIdentifier: "FriendCompany", for: indexPath) as? FriendCompanyTableViewCell else {
                 
                 return UITableViewCell()
             }
             
-            guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "FriendPersonal", for: indexPath) as? FriendPersonalTableViewCell else {
+            guard let friendListFriendsCell = tableView.dequeueReusableCell(withIdentifier: "FriendPersonal", for: indexPath) as? FriendPersonalTableViewCell else {
                 
                 return UITableViewCell()
             }
             
             if UserInfo.share.friendList[indexPath.row].colleague {
                 
-                cell.friendCompanyName.text = UserInfo.share.friendList[indexPath.row].name
+                friendListWorksCell.friendCompanyName.text = UserInfo.share.friendList[indexPath.row].name
                 
-                cell.friendCompanyStatus.text = UserInfo.share.friendList[indexPath.row].status
+                friendListWorksCell.friendCompanyStatus.text = UserInfo.share.friendList[indexPath.row].status
                 
                 if let friendsPhoto = UserInfo.share.friendList[indexPath.row].photoURL {
                     
                     guard let url = URL(string: friendsPhoto) else {
                         return UITableViewCell()
                     }
-                    cell.friendCompanyImage.kf.setImage(with: url)
+                    friendListWorksCell.friendCompanyImage.kf.setImage(with: url)
                     
-                    cell.friendCompanyImage.contentMode = .scaleToFill
+                    friendListWorksCell.friendCompanyImage.contentMode = .scaleToFill
                     
                     
                 }
                 
-                return cell
+                return friendListWorksCell
                 
             } else {
                 
-                cell2.friendPersonalName.text = UserInfo.share.friendList[indexPath.row].name
+                friendListFriendsCell.friendPersonalName.text = UserInfo.share.friendList[indexPath.row].name
                 
-                cell2.friendPersonalStatus.text = UserInfo.share.friendList[indexPath.row].status
+                friendListFriendsCell.friendPersonalStatus.text = UserInfo.share.friendList[indexPath.row].status
                 
                 if let friendsPhoto = UserInfo.share.friendList[indexPath.row].photoURL {
                     
                     guard let url = URL(string: friendsPhoto) else {
+                        
                         return UITableViewCell()
+                        
                     }
-                    cell2.friendPersonalImage.kf.setImage(with: url)
                     
-                    cell2.friendPersonalImage.contentMode = .scaleToFill
+                    friendListFriendsCell.friendPersonalImage.kf.setImage(with: url)
+                    
+                    friendListFriendsCell.friendPersonalImage.contentMode = .scaleToFill
                     
                 }
                 
-                return cell2
+                return friendListFriendsCell
                 
             }
     

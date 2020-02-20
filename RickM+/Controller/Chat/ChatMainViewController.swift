@@ -11,6 +11,19 @@ import UIKit
 class ChatMainViewController: UIViewController {
 
     @IBOutlet weak var chatTableView: UITableView!
+    
+    @IBAction func SelectNewChatBtnAction(_ sender: UIButton) {
+        performSegue(withIdentifier: "SelectNewChat", sender: nil)
+    }
+   
+    
+    @IBAction func sadfasfasfg(_ sender: UIButton) {
+        
+        print("aaaaa")
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         chatTableView.delegate = self
