@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
@@ -68,7 +69,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("send", for: .normal)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.addTarget(self, action: #selector(handlesend), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         containerView.addSubview(sendButton)
         
         //x,y,w,h
@@ -103,11 +104,17 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
     }
     
-    @objc func handlesend() {
+    @objc func handleSend() {
         
         let db = Firestore.firestore()
+        let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+        
+        
         db.collection("Message").document().setData([
             "text": "\(inputTextField.text!)",
+            "toid": "\(user!.id)",
+            "formid": "\(UserInfo.share.logInUserUid)",
+            "timestamp": timeStamp
             ])
         { (error) in
             if let error = error {
@@ -119,7 +126,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        handlesend()
+        handleSend()
         return true
     }
     

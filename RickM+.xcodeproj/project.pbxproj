@@ -32,6 +32,7 @@
 		575B898F23FD539100610045 /* SelectNewChatWorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
+		575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */; };
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
 		57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */; };
 		5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */; };
@@ -75,6 +76,7 @@
 		575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatWorkTableViewCell.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogMessageDataModel.swift; sourceTree = "<group>"; };
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyGroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				5759A6A823F29449004517A2 /* KeyModel.swift */,
 				57C1360123F6730F000E70F2 /* UserProfileManager.swift */,
+				575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */,
 				57C135FF23F66625000E70F2 /* UserProfileDataModel.swift */,
 			);
 			path = Model;
@@ -442,6 +445,7 @@
 				575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */,
 				57545DEC23F1388C00B26093 /* ChangeStatusViewController.swift in Sources */,
 				57545DE623F1097F00B26093 /* MoreViewController.swift in Sources */,
+				575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */,
 				575B898B23FD36F700610045 /* SelectNewChatController.swift in Sources */,
 				5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */,
 				575ACCAC23EA8BEC000842F2 /* CreateGroupViewController.swift in Sources */,
