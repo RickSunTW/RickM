@@ -15,5 +15,8 @@ struct Message: Codable {
     var text: String?
     var toid: String?
     var timestamp: Double?
+    var toName: String?
+    var toPhotoUrl: URL?
+    var timestampString: String?
     
 }

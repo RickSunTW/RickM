@@ -38,12 +38,13 @@ class ChatMainViewController: UIViewController {
     }
     
     var chatLog = [Message]()
+    var chatMessageDictionary = [String: Message]()
     var seedMessageTime = [String]()
-    var chatName = [String]()
+//    var chatName = [String]()
     var chatSelfImage = [URL]()
     
     func observeMessages() {
-        let db = Firestore.firestore().collection("Message")
+        let db = Firestore.firestore().collection("Message").order(by: "timestamp", descending: false)
         
         db.addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -59,8 +60,8 @@ class ChatMainViewController: UIViewController {
                 }
                 
                 self.chatLog.removeAll()
-                
-                self.chatName.removeAll()
+//
+//                self.chatName.removeAll()
                 
                 for document in quary.documents {
                     
@@ -70,25 +71,41 @@ class ChatMainViewController: UIViewController {
                         
                         let chat = try document.data(as: Message.self, decoder: Firestore.Decoder())
                         
-                        guard let messageDL = chat else {return}
+                        guard var messageDL = chat else {return}
                         
-                        self.chatLog.append(messageDL)
+                        for searchFriend in 0...(UserInfo.share.friendList.count - 1){
+                            if messageDL.toid == UserInfo.share.friendList[searchFriend].id {
+                                
+                                messageDL.toName = UserInfo.share.friendList[searchFriend].name
+                                
+                                guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+                                
+                                messageDL.toPhotoUrl = url
+                                
+                                let format = DateFormatter()
+                                
+                                format.dateFormat = "dd/MM hh:mm a"
+                                
+                                let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                                
+                                messageDL.timestampString = format.string(from: newdate)
+                                
+//                                print("\(messageDL)")
+                                
+                            }
+                            
+                        }
                         
-//                        let date = Date()
+//                        print("\(messageDL)")
                         
-                        let format = DateFormatter()
-                        
-//                        let year = DateFormatter()
-                        
-                        format.dateFormat = "dd/MM hh:mm"
-                        
-                        let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
-                        
-                        let timeArray = format.string(from: newdate)
-                        
-                        self.seedMessageTime.append(timeArray)
-                        
-                        print(format.string(from: newdate))
+                        if let toId = messageDL.toid {
+
+                            self.chatMessageDictionary[toId] = messageDL
+
+
+                            self.chatLog = Array(self.chatMessageDictionary.values)
+
+                        }
                         
                         DispatchQueue.main.async {
                             
@@ -104,7 +121,6 @@ class ChatMainViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     func showChatController(user: Users) {
@@ -130,7 +146,7 @@ class ChatMainViewController: UIViewController {
             vc?.chatHandler = { [weak self] (chat) in
                 self?.showChatController(user: chat)
                 
-                print("\(chat)")
+//                print("\(chat)")
                 
             }
             
@@ -151,55 +167,15 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if let toId = chatLog[indexPath.row].toid {
-            
-            let db = Firestore.firestore()
-            
-            db.collection("Users").whereField("id", isEqualTo: toId).getDocuments(){ (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    guard let quary = querySnapshot else {
-                        
-                        return
-                        
-                    }
-                    
-                    for document in quary.documents {
-                        
-                        do {
-                            
-                            let user = try document.data(as: Users.self, decoder: Firestore.Decoder())
-                            guard let url = URL(string: (user?.photoURL)!) else {return}
-                            
-                            self.chatName.append(user!.name)
-                            self.chatSelfImage.append(url)
-                            
-                        } catch {
-                            
-                            print(error)
-                            
-                        }
-                    }
-                    
-                }
-                
-                DispatchQueue.main.async {
-                    
-                    cell.chatListName.text = self.chatName[indexPath.row]
-                    cell.chatListImage.kf.setImage(with: self.chatSelfImage[indexPath.row])
-                    cell.chatListImage.contentMode = .scaleToFill
-                }
-                
-            }
-            
-        }
-        
+        cell.chatListName.text = chatLog[indexPath.row].toName
         cell.chatListLastChat.text = chatLog[indexPath.row].text
-        cell.chatListLastDay.text = seedMessageTime[indexPath.row]
+        cell.chatListLastDay.text = chatLog[indexPath.row].timestampString
+        cell.chatListImage.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
+        cell.chatListImage.contentMode = .scaleToFill
         
         return cell
         
     }
     
 }
+
