@@ -38,6 +38,7 @@ class ChatMainViewController: UIViewController {
     }
     
     var chatLog = [Message]()
+    var seedMessageTime = [String]()
     var chatName = [String]()
     var chatSelfImage = [URL]()
     
@@ -72,6 +73,22 @@ class ChatMainViewController: UIViewController {
                         guard let messageDL = chat else {return}
                         
                         self.chatLog.append(messageDL)
+                        
+//                        let date = Date()
+                        
+                        let format = DateFormatter()
+                        
+//                        let year = DateFormatter()
+                        
+                        format.dateFormat = "dd/MM hh:mm"
+                        
+                        let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                        
+                        let timeArray = format.string(from: newdate)
+                        
+                        self.seedMessageTime.append(timeArray)
+                        
+                        print(format.string(from: newdate))
                         
                         DispatchQueue.main.async {
                             
@@ -179,6 +196,7 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.chatListLastChat.text = chatLog[indexPath.row].text
+        cell.chatListLastDay.text = seedMessageTime[indexPath.row]
         
         return cell
         

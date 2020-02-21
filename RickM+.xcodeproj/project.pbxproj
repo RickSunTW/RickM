@@ -33,6 +33,7 @@
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
 		575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */; };
+		575E79AA23FEBD1900744516 /* TimeFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A923FEBD1900744516 /* TimeFormatHelper.swift */; };
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
 		57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */; };
 		5764068923E2D2990056440F /* FriendCompanyGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */; };
@@ -77,6 +78,7 @@
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogMessageDataModel.swift; sourceTree = "<group>"; };
+		575E79A923FEBD1900744516 /* TimeFormatHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatHelper.swift; sourceTree = "<group>"; };
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
 		57609FE423E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5764068823E2D2990056440F /* FriendCompanyGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCompanyGroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		5759A6A723F293D3004517A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				575E79A923FEBD1900744516 /* TimeFormatHelper.swift */,
 				5759A6A823F29449004517A2 /* KeyModel.swift */,
 				57C1360123F6730F000E70F2 /* UserProfileManager.swift */,
 				575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */,
@@ -435,6 +438,7 @@
 				57E1708723E2AFF100871888 /* FriendPersonalTableViewCell.swift in Sources */,
 				57545DEE23F14A1100B26093 /* DefaultStatusTableViewCell.swift in Sources */,
 				57545DE423F106FB00B26093 /* MoreCollectionViewCell.swift in Sources */,
+				575E79AA23FEBD1900744516 /* TimeFormatHelper.swift in Sources */,
 				5759A6A923F29449004517A2 /* KeyModel.swift in Sources */,
 				5759532823E555580060F27E /* AddFriendOrGroupViewController.swift in Sources */,
 				5759BB8D23E594F00037FF3F /* SearchFriendTableViewCell.swift in Sources */,
