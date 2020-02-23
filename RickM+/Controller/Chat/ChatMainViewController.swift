@@ -18,9 +18,7 @@ class ChatMainViewController: UIViewController {
         performSegue(withIdentifier: "SelectNewChat", sender: nil)
         
     }
-    
-    
-    
+
     @IBAction func sadfasfasfg(_ sender: UIButton) {
         
         print("aaaaa")
@@ -33,18 +31,57 @@ class ChatMainViewController: UIViewController {
         chatTableView.delegate = self
         chatTableView.dataSource = self
         chatTableView.separatorStyle = .none
-        observeMessages()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        observeMessages()
+//        observeUserMessages()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     var chatLog = [Message]()
     var chatMessageDictionary = [String: Message]()
     var seedMessageTime = [String]()
-//    var chatName = [String]()
     var chatSelfImage = [URL]()
     
+//    func observeUserMessages() {
+//        let db = Firestore.firestore().collection("user-messages").document("\(UserInfo.share.logInUserUid)")
+//
+//        db.addSnapshotListener { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error getting documents: \(error)")
+//            } else {
+//                guard let quary = querySnapshot else {
+//
+//
+//                    return
+//
+//                }
+//                for document in quary.documents {
+//
+//                    print("\(document)")
+//                }
+//
+//            }
+//        }
+//
+//        db.getDocument { (DocumentSnapshot?, <#Error?#>) in
+//            <#code#>
+//        }
+//
+//    }
+    
     func observeMessages() {
-        let db = Firestore.firestore().collection("Message").order(by: "timestamp", descending: false)
+        let db = Firestore.firestore().collection("Message").whereField("formid", isEqualTo: UserInfo.share.logInUserUid).order(by: "timestamp", descending: false)
+        
+        
+//        .whereField("formid", isEqualTo: UserInfo.share.logInUserUid)
+//        .order(by: "timestamp", descending: false)
         
         db.addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -132,11 +169,6 @@ class ChatMainViewController: UIViewController {
         
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.destination is SelectNewChatController {
@@ -177,5 +209,16 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let showTheChatName = chatLog[indexPath.row].toName
+        for x in 0...(UserInfo.share.friendList.count - 1){
+            if showTheChatName == UserInfo.share.friendList[x].name {
+                
+                self.showChatController(user: UserInfo.share.friendList[x] )
+                
+            }
+        }
+    }
 }
 
