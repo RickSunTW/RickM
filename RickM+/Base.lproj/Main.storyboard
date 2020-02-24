@@ -1701,7 +1701,7 @@
                     <view key="view" contentMode="scaleToFill" id="9y2-9m-zpH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.17156091080184696" green="0.53747075827412671" blue="0.92207815592664144" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="Xh1-ZU-ikO"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="smiley" catalog="system" selectedImage="smiley.fill" id="WKk-2s-Ydv"/>

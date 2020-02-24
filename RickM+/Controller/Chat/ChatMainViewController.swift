@@ -31,12 +31,13 @@ class ChatMainViewController: UIViewController {
         chatTableView.delegate = self
         chatTableView.dataSource = self
         chatTableView.separatorStyle = .none
+        observeMessages()
         
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        observeMessages()
+       
 //        observeUserMessages()
     }
     
@@ -266,12 +267,8 @@ class ChatMainViewController: UIViewController {
 //                print("\(chat)")
                 
             }
-            
         }
-        
     }
-    
-    
 }
 
 extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {

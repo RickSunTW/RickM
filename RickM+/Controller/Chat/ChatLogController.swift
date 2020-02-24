@@ -25,6 +25,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     var chatLog = [Message]()
     let cellId = "cellId"
+    var chatToPhotoUrl = String()
     
     lazy var inputTextField: UITextField = {
         
@@ -42,6 +43,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
         collectionView.backgroundColor = UIColor.white
         
+        collectionView.alwaysBounceVertical = true
+        
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: -12, right: 0)
+        
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
+        
         collectionView.register(ChatMessageCellCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
         let layout = UICollectionViewFlowLayout()
@@ -55,11 +62,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
         setupInputComponents()
         
+        setupKeyboardObservers()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
         
+    }
+    
+    func setupKeyboardObservers() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+      
+    
+    }
+    
+    @objc func handleKeyboardWillShow(notification: Notification) {
+        
+        print(notification.userInfo)
     }
     
     func observeMessageChat() {
@@ -99,7 +120,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
                                 
                                 for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                     
-                                    if messageDL.toid == UserInfo.share.friendList[searchFriend].id {
+                                    if messageDL.formid == UserInfo.share.friendList[searchFriend].id {
                                         
                                         messageDL.toName = UserInfo.share.friendList[searchFriend].name
                                         
@@ -186,12 +207,41 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatMessageCellCollectionViewCell
+        
+        cell.textView.text = chatLog[indexPath.row].text
+        
+        cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: chatLog[indexPath.row].text!).width + 20
+        
+        cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
+        
+        if UserInfo.share.logInUserUid == chatLog[indexPath.row].formid {
+            
+            cell.bubbleView.backgroundColor = UIColor(red: 0/255, green: 137/255, blue: 249/255, alpha: 1)
+            
+            cell.bubbleViewRightAnchor?.isActive = true
+            cell.bubbleViewLeftAnchor?.isActive = false
+            
+            cell.profileImageView.isHidden = true
+            
+        } else {
+            
+            cell.bubbleView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+            cell.textView.textColor = .black
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
+//            cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
+            
+        }
         
 //        cell.backgroundColor = UIColor.blue
         
         return cell
         
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -279,6 +329,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
 
         }
         
+        self.inputTextField.text = nil
+        
 //        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
 //            "\(chatUid)": "1",
 //            ], merge: true)
@@ -291,13 +343,32 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         return true
     }
     
+    private func estimateFrameForText(text: String) -> CGRect {
+        
+        let size = CGSize(width: 200, height: 800)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)], context: nil)
+        
+    }
+    
 }
 
 
 extension ChatLogController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 80)
+        var height: CGFloat = 80
+        
+        if let text = chatLog[indexPath.row].text {
+            
+            height = estimateFrameForText(text: text).height + 20
+            
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
+    
     
 }
