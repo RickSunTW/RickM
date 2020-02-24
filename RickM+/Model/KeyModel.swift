@@ -16,6 +16,9 @@ class UserInfo {
     var normalFriendsPhoto = [ImageResource]()
     var colleagueFriendsPhoto = [ImageResource]()
     var friendList = [Users]()
+    var chatRealTimeFriendUid = String()
+    var chatRealTimePairUidToFriend = String()
+    var chatRealTimePairUidFromMe = String()
     
     static let share = UserInfo()
     private init(){

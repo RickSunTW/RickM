@@ -46,8 +46,9 @@ class ChatMainViewController: UIViewController {
     
     var chatLog = [Message]()
     var chatMessageDictionary = [String: Message]()
-    var seedMessageTime = [String]()
-    var chatSelfImage = [URL]()
+    var toId = String()
+//    var seedMessageTime = [String]()
+//    var chatSelfImage = [URL]()
     
 //    func observeUserMessages() {
 //        let db = Firestore.firestore().collection("user-messages").document("\(UserInfo.share.logInUserUid)")
@@ -77,7 +78,7 @@ class ChatMainViewController: UIViewController {
 //    }
     
     func observeMessages() {
-        let db = Firestore.firestore().collection("Message").whereField("formid", isEqualTo: UserInfo.share.logInUserUid).order(by: "timestamp", descending: false)
+        let db = Firestore.firestore().collection("Message").order(by: "timestamp", descending: false)
         
         
 //        .whereField("formid", isEqualTo: UserInfo.share.logInUserUid)
@@ -110,39 +111,123 @@ class ChatMainViewController: UIViewController {
                         
                         guard var messageDL = chat else {return}
                         
-                        for searchFriend in 0...(UserInfo.share.friendList.count - 1){
-                            if messageDL.toid == UserInfo.share.friendList[searchFriend].id {
+                        if messageDL.formid == UserInfo.share.logInUserUid {
+                            for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
-                                messageDL.toName = UserInfo.share.friendList[searchFriend].name
+                                if messageDL.toid == UserInfo.share.friendList[searchFriend].id {
+                                    
+                                    messageDL.toName = UserInfo.share.friendList[searchFriend].name
+                                    
+                                    guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+                                    
+                                    messageDL.toPhotoUrl = url
+                                    
+                                    let format = DateFormatter()
+                                    
+                                    format.dateFormat = "dd/MM hh:mm a"
+                                    
+                                    let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                                    
+                                    messageDL.timestampString = format.string(from: newdate)
+                                    
+                                }
+                            }
+                        } else if messageDL.toid == UserInfo.share.logInUserUid {
+                            for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
-                                guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+                                if messageDL.formid == UserInfo.share.friendList[searchFriend].id {
+                                    messageDL.toName = UserInfo.share.friendList[searchFriend].name
+                                    
+                                    guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+                                    
+                                    messageDL.toPhotoUrl = url
+                                    
+                                    let format = DateFormatter()
+                                    
+                                    format.dateFormat = "dd/MM hh:mm a"
+                                    
+                                    let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                                    
+                                    messageDL.timestampString = format.string(from: newdate)
+                                    
+                                }
                                 
-                                messageDL.toPhotoUrl = url
-                                
-                                let format = DateFormatter()
-                                
-                                format.dateFormat = "dd/MM hh:mm a"
-                                
-                                let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
-                                
-                                messageDL.timestampString = format.string(from: newdate)
-                                
-//                                print("\(messageDL)")
+                               
                                 
                             }
                             
                         }
                         
-//                        print("\(messageDL)")
                         
-                        if let toId = messageDL.toid {
-
-                            self.chatMessageDictionary[toId] = messageDL
-
-
-                            self.chatLog = Array(self.chatMessageDictionary.values)
-
+//                        for searchFriend in 0...(UserInfo.share.friendList.count - 1){
+//                            if messageDL.formid == UserInfo.share.logInUserUid {
+//
+//                                messageDL.toName = UserInfo.share.friendList[searchFriend].name
+//
+//                                guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+//
+//                                messageDL.toPhotoUrl = url
+//
+//                                let format = DateFormatter()
+//
+//                                format.dateFormat = "dd/MM hh:mm a"
+//
+//                                let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+//
+//                                messageDL.timestampString = format.string(from: newdate)
+//
+////                                print("\(messageDL)")
+//
+//                            } else if messageDL.toid == UserInfo.share.logInUserUid {
+//                                messageDL.toName = UserInfo.share.friendList[searchFriend].name
+//
+//                                guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+//
+//                                messageDL.toPhotoUrl = url
+//
+//                                let format = DateFormatter()
+//
+//                                format.dateFormat = "dd/MM hh:mm a"
+//
+//                                let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+//
+//                                messageDL.timestampString = format.string(from: newdate)
+//                            }
+//
+//
+//                        }
+                        
+                        //                        print("\(messageDL)")
+                        
+                        
+                        if messageDL.toid == UserInfo.share.logInUserUid {
+                            
+                            self.toId = messageDL.formid!
+                            
+                            self.chatMessageDictionary[self.toId] = messageDL
+                            
                         }
+                        else if messageDL.formid == UserInfo.share.logInUserUid {
+                            
+                            self.toId = messageDL.toid!
+                            
+                            self.chatMessageDictionary[self.toId] = messageDL
+                            
+                        }
+                        
+                        
+                        self.chatLog = Array(self.chatMessageDictionary.values)
+                        
+//                        print(self.chatLog.count)
+                        
+//                        if let toId = messageDL.toid {
+//
+//                            self.chatMessageDictionary[toId] = messageDL
+//
+//
+//                            self.chatLog = Array(self.chatMessageDictionary.values)
+//
+//                        }
                         
                         DispatchQueue.main.async {
                             
@@ -212,9 +297,14 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let showTheChatName = chatLog[indexPath.row].toName
+        
+
+        
         for x in 0...(UserInfo.share.friendList.count - 1){
             if showTheChatName == UserInfo.share.friendList[x].name {
+                UserInfo.share.chatRealTimePairUidToFriend = "\(UserInfo.share.friendList[x].id)-\(UserInfo.share.logInUserUid)"
                 
+                UserInfo.share.chatRealTimePairUidFromMe = "\(UserInfo.share.logInUserUid)-\(UserInfo.share.friendList[x].id)"
                 self.showChatController(user: UserInfo.share.friendList[x] )
                 
             }

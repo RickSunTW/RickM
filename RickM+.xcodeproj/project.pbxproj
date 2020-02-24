@@ -30,6 +30,7 @@
 		575B898B23FD36F700610045 /* SelectNewChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898A23FD36F700610045 /* SelectNewChatController.swift */; };
 		575B898D23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */; };
 		575B898F23FD539100610045 /* SelectNewChatWorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */; };
+		575BBB9C24036280008B8034 /* ChatMessageCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575BBB9B24036280008B8034 /* ChatMessageCellCollectionViewCell.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
 		575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */; };
@@ -75,6 +76,7 @@
 		575B898A23FD36F700610045 /* SelectNewChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatController.swift; sourceTree = "<group>"; };
 		575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatFriendTableViewCell.swift; sourceTree = "<group>"; };
 		575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewChatWorkTableViewCell.swift; sourceTree = "<group>"; };
+		575BBB9B24036280008B8034 /* ChatMessageCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogMessageDataModel.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */,
+				575BBB9B24036280008B8034 /* ChatMessageCellCollectionViewCell.swift */,
 				575B898C23FD405A00610045 /* SelectNewChatFriendTableViewCell.swift */,
 				575B898E23FD539100610045 /* SelectNewChatWorkTableViewCell.swift */,
 			);
@@ -461,6 +464,7 @@
 				57609FE523E6B5A800F91EB7 /* GiftImageCollectionViewCell.swift in Sources */,
 				575B898723FD020300610045 /* ChatLogController.swift in Sources */,
 				5759532623E51A150060F27E /* FriendGroupTableViewCell.swift in Sources */,
+				575BBB9C24036280008B8034 /* ChatMessageCellCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

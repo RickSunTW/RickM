@@ -18,5 +18,6 @@ struct Message: Codable {
     var toName: String?
     var toPhotoUrl: URL?
     var timestampString: String?
+    var chatUid: String?
     
 }
