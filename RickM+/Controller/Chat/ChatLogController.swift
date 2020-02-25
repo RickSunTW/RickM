@@ -11,11 +11,24 @@ import UIKit
 import Firebase
 import FirebaseFirestoreSwift
 
+
 class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     var user: Users? {
         didSet {
             navigationItem.title = user?.name
+            
+            let showTheChatName = user?.name
+            
+            for x in 0...(UserInfo.share.friendList.count - 1){
+                if showTheChatName == UserInfo.share.friendList[x].name {
+                    UserInfo.share.chatRealTimePairUidToFriend = "\(UserInfo.share.friendList[x].id)-\(UserInfo.share.logInUserUid)"
+                    
+                    UserInfo.share.chatRealTimePairUidFromMe = "\(UserInfo.share.logInUserUid)-\(UserInfo.share.friendList[x].id)"
+                  
+                    
+                }
+            }
             
             observeMessageChat()
             
@@ -62,25 +75,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
         setupInputComponents()
         
-        setupKeyboardObservers()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
         
-    }
-    
-    func setupKeyboardObservers() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-      
-    
-    }
-    
-    @objc func handleKeyboardWillShow(notification: Notification) {
-        
-        print(notification.userInfo)
     }
     
     func observeMessageChat() {
