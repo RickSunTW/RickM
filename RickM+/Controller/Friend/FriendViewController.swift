@@ -200,19 +200,27 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.performSegue(withIdentifier: "ShowUserProfile", sender: nil)
             
-        } else {
+        } else if indexPath.section == 3 {
             
-//            showChatController()
-           
+            let selectUser = UserInfo.share.friendList[indexPath.row]
+            
+            showChatController(user: selectUser)
+               
+            
+        } else {
             
         }
 
     }
     
-    func showChatController() {
+    func showChatController(user: Users) {
 
-        let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
-        navigationController?.pushViewController(chatLogControler, animated: true)
+             let chatLogControler = ChatLogController(collectionViewLayout: UICollectionViewLayout())
+          
+          navigationController?.pushViewController(chatLogControler, animated: true)
+          
+          chatLogControler.user = user
+          
 
     }
     

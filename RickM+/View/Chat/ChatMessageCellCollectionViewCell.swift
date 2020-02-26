@@ -21,8 +21,6 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         
         tv.textColor = .white
         
-
-//        tv.font = UIFont.init(name: "SAMPLE TEXT FOR NOW", size: 16)
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -85,7 +83,7 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50)
         bubbleViewLeftAnchor?.isActive = true
         
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+//        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true

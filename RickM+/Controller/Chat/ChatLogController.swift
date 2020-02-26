@@ -12,7 +12,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate {
+class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var user: Users? {
         didSet {
@@ -46,11 +46,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         textField.placeholder = "Enter message..."
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
+        textField.backgroundColor = .clear
+        
         return textField
     }()
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,26 +60,220 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: -12, right: 0)
         
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
+//        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
         
         collectionView.register(ChatMessageCellCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
         let layout = UICollectionViewFlowLayout()
+        
         layout.itemSize = CGSize(width: 100, height: 100)
+        
         layout.scrollDirection = .vertical
+        
         collectionView.collectionViewLayout = layout
         
         collectionView.delegate = self
         
         collectionView.dataSource = self
         
-        setupInputComponents()
+        collectionView.keyboardDismissMode = .interactive
+        
+//        setupInputComponents()
+        
+//        setupKeyboardObservers()
         
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        //avoid memory leak
+    }
+    
+    lazy var inputContainerView: UIView = {
+        
+        let containerView = UIView()
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+        containerView.backgroundColor = UIColor.white
+        
+        let uploadImageView = UIImageView()
+        uploadImageView.isUserInteractionEnabled = true
+        uploadImageView.image = UIImage(systemName: "photo")
+        uploadImageView.tintColor = .darkGray
+        uploadImageView.translatesAutoresizingMaskIntoConstraints = false
+        uploadImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUploadTap)))
+        containerView.addSubview(uploadImageView)
+        
+//        x,y,w,h
+        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        uploadImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+
+
+        
+        let sendButton = UIButton(type: .system)
+        sendButton.setTitle("send", for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        containerView.addSubview(sendButton)
+        
+//        x,y,w,h
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        
+        containerView.addSubview(inputTextField)
+        
+//        x,y,w,h
+        inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant:  8).isActive = true
+        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        
+        let separatorLineView = UIView()
+        separatorLineView.backgroundColor = UIColor.darkGray
+        separatorLineView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(separatorLineView)
+        
+//        x,y,w,h
+        separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        return containerView
+    }()
+    
+    
+    @objc func handleUploadTap() {
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        imagePickerController.modalPresentationStyle = .fullScreen
+        present(imagePickerController, animated: true, completion: nil)
+        
+//        show(imagePickerController, sender: Any?.self)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFormPicker: UIImage?
+        
+        if let editedImage = info[.editedImage]  as? UIImage {
+            selectedImageFormPicker = editedImage
+            
+        } else if let pickedImage = info[.originalImage] as? UIImage {
+            selectedImageFormPicker = pickedImage
+           
+        }
+        
+        dismiss(animated: true, completion: nil)
+        
+        let imageName = NSUUID().uuidString
+        
+        let storageRef = Storage.storage().reference().child("message_images").child(imageName)
+        
+        let uploadData = selectedImageFormPicker?.pngData()
+        
+        let metaData = StorageMetadata()
+        
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
+            if error != nil {
+                print("error")
+                return
+            }
+//            else {
+//                storageRef.downloadURL { (url, error) in
+//                    guard let photoURL = url?.absoluteURL else { return }
+//                    let db = Firestore.firestore()
+//                    db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
+//                        "photoURL":"\(photoURL)",
+//                    ], merge: true)
+//
+//                }
+//            }
+        }
+    }
+    
+//    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[String: AnyObject]) {
+//
+//        print("aaa")
+//
+//    }
+//
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        dismiss(animated: true) {
+//            return
+//        }
+//    }
+    
+    override var inputAccessoryView: UIView? {
+        get {
+        
+            return inputContainerView
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self,selector: #selector(handleKeyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardWillShow(notification: NSNotification){
+        if let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            if keyboardFrame.height == 343 {
+                
+                 containerViewBottomAnchor?.constant = -keyboardFrame.height
+            } else {
+                
+                containerViewBottomAnchor?.constant = -343
+                
+            }
+            
+//            containerViewBottomAnchor?.constant = -keyboardFrame.height
+//            print(keyboardFrame)
+        }
+        if let keyBoardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+            
+            UIView.animate(withDuration: keyBoardDuration) {
+                
+                self.view.layoutIfNeeded()
+                
+            }
+        }
+        
+    }
+    
+    @objc func handleKeyboardWillHide(notification: NSNotification) {
+        
+        if let keyBoardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+            
+            UIView.animate(withDuration: keyBoardDuration) {
+                
+                self.view.layoutIfNeeded()
+                
+            }
+        }
+            containerViewBottomAnchor?.constant = 0
         
     }
     
@@ -162,8 +356,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
                                         
                                     }
                                     
-                                    
-                                    
                                 }
                                 
                             }
@@ -179,8 +371,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
                                 
                             }
                             
-                            //                            print("\(messageDL)")
-                            print("\(self.chatLog.count)")
+//                            print("\(messageDL)")
+//                            print("\(self.chatLog.count)")
                             
                             
                             DispatchQueue.main.async {
@@ -221,7 +413,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
             
             cell.bubbleViewRightAnchor?.isActive = true
             cell.bubbleViewLeftAnchor?.isActive = false
-            
+            cell.textView.textColor = .white
             cell.profileImageView.isHidden = true
             
         } else {
@@ -230,12 +422,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
             cell.textView.textColor = .black
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
-//            cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
             
         }
-        
-//        cell.backgroundColor = UIColor.blue
-        
+    
         return cell
         
     }
@@ -248,21 +437,27 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         
 //        print("ya")
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           self.view.endEditing(true)
-       }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//           self.view.endEditing(true)
+//       }
+    
+    var containerViewBottomAnchor: NSLayoutConstraint?
     
     func setupInputComponents() {
         let containerView = UIView()
-        containerView.backgroundColor = UIColor.lightGray
+        containerView.backgroundColor = UIColor.white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(containerView)
         
         //x,y,w,h
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewBottomAnchor?.isActive = true
+        
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        
         containerView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         let sendButton = UIButton(type: .system)
@@ -296,10 +491,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         //x,y,w,h
         separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-           separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
+        separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-     
-
+        
+        
         
     }
     
@@ -367,7 +562,9 @@ extension ChatLogController : UICollectionViewDelegateFlowLayout {
             
         }
         
-        return CGSize(width: view.frame.width, height: height)
+        let width = UIScreen.main.bounds.width
+        
+        return CGSize(width: width, height: height)
     }
     
     
