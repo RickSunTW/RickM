@@ -22,6 +22,9 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         tv.textColor = .white
         
         tv.translatesAutoresizingMaskIntoConstraints = false
+        
+        tv.isEditable = false
+        
         return tv
     }()
     
@@ -64,7 +67,7 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         
         imageView.contentMode = .scaleAspectFill
         
-        imageView.backgroundColor = .brown
+        imageView.backgroundColor = .clear
         
         return imageView
         

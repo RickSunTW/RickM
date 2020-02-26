@@ -234,8 +234,6 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
         
         let showTheChatName = chatLog[indexPath.row].toName
         
-
-        
         for x in 0...(UserInfo.share.friendList.count - 1){
             
             if showTheChatName == UserInfo.share.friendList[x].name {

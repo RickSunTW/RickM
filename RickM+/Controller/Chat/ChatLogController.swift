@@ -58,7 +58,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
         collectionView.alwaysBounceVertical = true
         
-        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: -12, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 10, right: 0)
         
 //        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
         
@@ -80,7 +80,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
 //        setupInputComponents()
         
-//        setupKeyboardObservers()
+        setupKeyboardObservers()
         
         
     }
@@ -161,6 +161,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         imagePickerController.modalPresentationStyle = .fullScreen
         present(imagePickerController, animated: true, completion: nil)
         
+        
 //        show(imagePickerController, sender: Any?.self)
         
     }
@@ -197,19 +198,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             else {
                 storageRef.downloadURL { (url, error) in
                     guard let photoURL = url?.absoluteURL else { return }
-                    self.seedMessageWithImageUrl(imageUrl: photoURL)
-//                    print(photoURL)
-//                    let db = Firestore.firestore()
-//                    db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
-//                        "photoURL":"\(photoURL)",
-//                    ], merge: true)
+                    guard let image = selectedImageFormPicker else { return }
+                    self.seedMessageWithImageUrl(imageUrl: photoURL, image: image)
 
                 }
             }
         }
     }
     
-    private func seedMessageWithImageUrl(imageUrl: URL) {
+    private func seedMessageWithImageUrl(imageUrl: URL, image: UIImage) {
             
             let db = Firestore.firestore()
             let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
@@ -223,7 +220,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                 "formid": "\(UserInfo.share.logInUserUid)",
                 "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
                 "timestamp": timeStamp,
-                
+                "imageHeight": image.size.height,
+                "imageWidth": image.size.width,
                 ])
             { (error) in
                 if let error = error {
@@ -252,10 +250,21 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(self,selector: #selector(handleKeyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,object: nil)
+//        NotificationCenter.default.addObserver(self,selector: #selector(handleKeyboardWillShow),
+//                                               name: UIResponder.keyboardWillShowNotification,object: nil)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardDidShow() {
+        if chatLog.count > 0 {
+            let indexPath = NSIndexPath(item: chatLog.count - 1 , section: 0)
+            collectionView?.scrollToItem(at: indexPath as IndexPath, at: .top, animated: true)
+        }
+        
+        
     }
     
     @objc private func handleKeyboardWillShow(notification: NSNotification){
@@ -399,6 +408,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                             DispatchQueue.main.async {
                                 
                                 self.collectionView.reloadData()
+                                let indexPath = NSIndexPath(item: self.chatLog.count - 1, section: 0)
+                                self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
                                 
                             }
                             
@@ -428,13 +439,19 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             
             cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 20
             
+        } else if chatLog[indexPath.row].imageUrl != nil {
+            
+            cell.bubbleWidthAnchor?.constant = 200
+            
         }
+        
         
         if let messageImageurl = chatLog[indexPath.row].imageUrl {
             
             cell.messageImageView.kf.setImage(with: messageImageurl)
             
             cell.messageImageView.isHidden = false
+            
             cell.bubbleView.backgroundColor = UIColor.clear
             
         } else {
@@ -442,8 +459,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             cell.messageImageView.isHidden = true
             
         }
-        
-        
         
         cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
         
@@ -596,9 +611,18 @@ extension ChatLogController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height: CGFloat = 80
         
-        if let text = chatLog[indexPath.row].text {
+        let message = chatLog[indexPath.row]
+        
+        if let text = message.text {
             
             height = estimateFrameForText(text: text).height + 20
+            
+        } else if let imageWidth = message.imageWidth, let imageHeight = message.imageHeight {
+            
+            height = CGFloat(imageHeight / imageWidth * 200)
+            
+            
+//            height = 120
             
         }
         
