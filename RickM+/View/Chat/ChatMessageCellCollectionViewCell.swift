@@ -40,8 +40,6 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         
         let imageView = UIImageView()
         
-        imageView.image = UIImage(named: "PalauJellyfish")
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         imageView.layer.cornerRadius = 8 
@@ -49,6 +47,24 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         imageView.layer.masksToBounds = true
         
         imageView.contentMode = .scaleAspectFill
+        
+        return imageView
+        
+    }()
+    
+    let messageImageView: UIImageView = {
+        
+        let imageView = UIImageView()
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.layer.cornerRadius = 8
+        
+        imageView.layer.masksToBounds = true
+        
+        imageView.contentMode = .scaleAspectFill
+        
+        imageView.backgroundColor = .brown
         
         return imageView
         
@@ -70,6 +86,12 @@ class ChatMessageCellCollectionViewCell: UICollectionViewCell {
         self.addSubview(bubbleView)
         self.addSubview(textView)
         self.addSubview(profileImageView)
+        bubbleView.addSubview(messageImageView)
+        
+        messageImageView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor).isActive = true
+        messageImageView.topAnchor.constraint(equalTo: bubbleView.topAnchor).isActive = true
+        messageImageView.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
+        messageImageView.heightAnchor.constraint(equalTo: bubbleView.heightAnchor).isActive = true
         
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4).isActive = true

@@ -194,30 +194,51 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                 print("error")
                 return
             }
-//            else {
-//                storageRef.downloadURL { (url, error) in
-//                    guard let photoURL = url?.absoluteURL else { return }
+            else {
+                storageRef.downloadURL { (url, error) in
+                    guard let photoURL = url?.absoluteURL else { return }
+                    self.seedMessageWithImageUrl(imageUrl: photoURL)
+//                    print(photoURL)
 //                    let db = Firestore.firestore()
 //                    db.collection("Users").document("\(UserInfo.share.logInUserUid)").setData([
 //                        "photoURL":"\(photoURL)",
 //                    ], merge: true)
-//
-//                }
-//            }
+
+                }
+            }
         }
     }
     
-//    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[String: AnyObject]) {
-//
-//        print("aaa")
-//
-//    }
-//
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        dismiss(animated: true) {
-//            return
-//        }
-//    }
+    private func seedMessageWithImageUrl(imageUrl: URL) {
+            
+            let db = Firestore.firestore()
+            let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+            
+            
+            db.collection("Message").document().setData([
+                
+    //            id  = DocumentID
+                "imageUrl": "\(imageUrl)",
+                "toid": "\(user!.id)",
+                "formid": "\(UserInfo.share.logInUserUid)",
+                "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
+                "timestamp": timeStamp,
+                
+                ])
+            { (error) in
+                if let error = error {
+                    print(error)
+                }
+
+            }
+            
+            self.inputTextField.text = nil
+            
+    //        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
+    //            "\(chatUid)": "1",
+    //            ], merge: true)
+            
+        }
     
     override var inputAccessoryView: UIView? {
         get {
@@ -403,7 +424,26 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
         cell.textView.text = chatLog[indexPath.row].text
         
-        cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: chatLog[indexPath.row].text!).width + 20
+        if let text = chatLog[indexPath.row].text {
+            
+            cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 20
+            
+        }
+        
+        if let messageImageurl = chatLog[indexPath.row].imageUrl {
+            
+            cell.messageImageView.kf.setImage(with: messageImageurl)
+            
+            cell.messageImageView.isHidden = false
+            cell.bubbleView.backgroundColor = UIColor.clear
+            
+        } else {
+            
+            cell.messageImageView.isHidden = true
+            
+        }
+        
+        
         
         cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
         

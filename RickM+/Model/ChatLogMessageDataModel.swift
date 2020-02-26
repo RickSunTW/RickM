@@ -19,5 +19,6 @@ struct Message: Codable {
     var toPhotoUrl: URL?
     var timestampString: String?
     var chatUid: String?
+    var imageUrl: URL?
     
 }
