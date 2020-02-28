@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import MobileCoreServices
+import AVFoundation
 
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -26,7 +28,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                     
                     UserInfo.share.chatRealTimePairUidFromMe = "\(UserInfo.share.logInUserUid)-\(UserInfo.share.friendList[x].id)"
                   
-                    
                 }
             }
             
@@ -159,6 +160,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         imagePickerController.allowsEditing = true
         imagePickerController.delegate = self
         imagePickerController.modalPresentationStyle = .fullScreen
+        imagePickerController.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        
         present(imagePickerController, animated: true, completion: nil)
         
         
@@ -168,42 +171,178 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        var selectedImageFormPicker: UIImage?
+        // we selected an video
         
-        if let editedImage = info[.editedImage]  as? UIImage {
-            selectedImageFormPicker = editedImage
+        if let videoUrl = info[.mediaURL] as? NSURL {
             
-        } else if let pickedImage = info[.originalImage] as? UIImage {
-            selectedImageFormPicker = pickedImage
-           
-        }
-        
-        dismiss(animated: true, completion: nil)
-        
-        let imageName = NSUUID().uuidString
-        
-        let storageRef = Storage.storage().reference().child("message_images").child(imageName)
-        
-        let uploadData = selectedImageFormPicker?.pngData()
-        
-        let metaData = StorageMetadata()
-        
-        metaData.contentType = "image/jpg"
-        
-        storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
-            if error != nil {
-                print("error")
+            let fileName = NSUUID().uuidString + ".mov"
+            
+            let storageRef = Storage.storage().reference().child("message_videos").child(fileName)
+            
+            let metaData = StorageMetadata()
+            
+            let uploadData = videoUrl as URL
+            
+            var uploadVideoData: Data?
+            
+            do {
+                uploadVideoData = try Data(contentsOf: uploadData, options: .alwaysMapped)
+            } catch {
+                uploadVideoData = nil
                 return
             }
-            else {
-                storageRef.downloadURL { (url, error) in
-                    guard let photoURL = url?.absoluteURL else { return }
-                    guard let image = selectedImageFormPicker else { return }
-                    self.seedMessageWithImageUrl(imageUrl: photoURL, image: image)
+            
+            metaData.contentType = "videos"
+            
+            let uploadTask = storageRef.putData(uploadVideoData!, metadata: metaData) { (metadata, error) in
+                
+                if error != nil {
+                    
+                    print("error")
+                    
+                    return
+                    
+                } else {
+                    storageRef.downloadURL { (url, error) in
+                        
+                        guard let storageUrl = url?.absoluteURL else { return }
+                        
+                        let db = Firestore.firestore()
+                        let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+                        
+                        guard let thumbnailImage = self.thumbnailImageForVideoUrl(videoUrl: videoUrl) else {
+                            return
+                        }
+                        
+                        let imageName = NSUUID().uuidString
+                        
+                        let storageRef = Storage.storage().reference().child("message_video_images").child(imageName)
+                        
+                        let uploadData = thumbnailImage.pngData()
+                        
+                        let metaData = StorageMetadata()
+                        
+                        metaData.contentType = "image/jpg"
+                        
+                        storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
+                            if error != nil {
+                                print("error")
+                                return
+                            }
+                            else {
+                                storageRef.downloadURL { (url, error) in
+                                    guard let photoURL = url?.absoluteURL else { return }
+                                    
+                                    db.collection("Message").document().setData([
+                                        
+                                        //            id  = DocumentID
+                                        "imageUrl": "\(photoURL)",
+                                        "videoUrl": "\(storageUrl)",
+                                        "toid": "\(self.user!.id)",
+                                        "formid": "\(UserInfo.share.logInUserUid)",
+                                        "chatUid": "\(UserInfo.share.logInUserUid)-\(self.user!.id)",
+                                        "timestamp": timeStamp,
+                                        "imageHeight": thumbnailImage.size.height,
+                                        "imageWidth": thumbnailImage.size.width,
+                                        ])
+                                    { (error) in
+                                        if let error = error {
+                                            print(error)
+                                        }
+                                        
+                                    }
+                                    
+                                    print(storageUrl)
+                                    
+                                }
+                            }
+                        }
+                        
+                        
 
+//                        guard let image = selectedImageFormPicker else { return }
+//                        self.seedMessageWithImageUrl(imageUrl: photoURL, image: image)
+                        
+                    }
+                }
+                
+            }
+            uploadTask.observe(.progress) { (snapshot) in
+                //需要將Loading的進度條加入textField
+                
+                print(snapshot.progress?.completedUnitCount as Any)
+                
+            }
+            
+            uploadTask.observe(.success) { (snapshot) in
+                //Loading完成後需要在View裡面顯示影片
+                print("success")
+                
+            }
+            
+        } else {
+            
+            // we selected an image
+            
+            var selectedImageFormPicker: UIImage?
+            
+            if let editedImage = info[.editedImage]  as? UIImage {
+                selectedImageFormPicker = editedImage
+                
+            } else if let pickedImage = info[.originalImage] as? UIImage {
+                selectedImageFormPicker = pickedImage
+                
+            }
+            
+//            dismiss(animated: true, completion: nil)
+            
+            let imageName = NSUUID().uuidString
+            
+            let storageRef = Storage.storage().reference().child("message_images").child(imageName)
+            
+            let uploadData = selectedImageFormPicker?.pngData()
+            
+            let metaData = StorageMetadata()
+            
+            metaData.contentType = "image/jpg"
+            
+            storageRef.putData(uploadData!, metadata: metaData) { (metadata, error) in
+                if error != nil {
+                    print("error")
+                    return
+                }
+                else {
+                    storageRef.downloadURL { (url, error) in
+                        guard let photoURL = url?.absoluteURL else { return }
+                        guard let image = selectedImageFormPicker else { return }
+                        self.seedMessageWithImageUrl(imageUrl: photoURL, image: image)
+                        
+                    }
                 }
             }
         }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func thumbnailImageForVideoUrl(videoUrl: NSURL) -> UIImage? {
+        
+        let asset = AVAsset(url: videoUrl as URL)
+        
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        do {
+            
+            let thumbnaiCGImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            
+            return UIImage(cgImage: thumbnaiCGImage)
+            
+        } catch let err {
+            
+            print(err)
+        }
+        
+        return nil
+         
     }
     
     private func seedMessageWithImageUrl(imageUrl: URL, image: UIImage) {
@@ -435,9 +574,15 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
         cell.chatLogController = self
         
-        cell.textView.text = chatLog[indexPath.row].text
+        let message = chatLog[indexPath.row]
         
-        if let text = chatLog[indexPath.row].text {
+        cell.textView.text = message.text
+        
+        cell.message = message
+        
+//        cell.chatLog[indexPath.row] = chatLog[indexPath.row]
+        
+        if let text = message.text {
             
             cell.bubbleWidthAnchor?.constant = estimateFrameForText(text: text).width + 32
             
@@ -445,7 +590,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             
             
             
-        } else if chatLog[indexPath.row].imageUrl != nil {
+        } else if message.imageUrl != nil {
             
             cell.bubbleWidthAnchor?.constant = 200
             cell.textView.isHidden = true
@@ -453,7 +598,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         }
         
         
-        if let messageImageurl = chatLog[indexPath.row].imageUrl {
+        if let messageImageurl = message.imageUrl {
             
             cell.messageImageView.kf.setImage(with: messageImageurl)
             
@@ -467,7 +612,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             
         }
         
-        cell.profileImageView.kf.setImage(with: chatLog[indexPath.row].toPhotoUrl)
+        cell.profileImageView.kf.setImage(with: message.toPhotoUrl)
         
         if UserInfo.share.logInUserUid == chatLog[indexPath.row].formid {
             
@@ -486,7 +631,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             cell.bubbleViewLeftAnchor?.isActive = true
             
         }
-    
+        
+        cell.playButton.isHidden = message.videoUrl == nil
+        
         return cell
         
     }
@@ -565,13 +712,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         let db = Firestore.firestore()
         let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         
-//        var id = String()
-        
-//        let chatUid = UUID().uuidString
         
         db.collection("Message").document().setData([
             
-//            id  = DocumentID
             "text": "\(inputTextField.text!)",
             "toid": "\(user!.id)",
             "formid": "\(UserInfo.share.logInUserUid)",
@@ -587,10 +730,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         }
         
         self.inputTextField.text = nil
-        
-//        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
-//            "\(chatUid)": "1",
-//            ], merge: true)
         
     }
     
@@ -608,9 +747,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     func performZoomInForStartingImageView(startingImageView: UIImageView) {
         
         self.startingImageView = startingImageView
-        self.startingImageView?.isHidden = true
         
-//        print("aaaaaaaaaa")
+        self.startingImageView?.isHidden = true
+
         startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
         
         let zoomingImageView = UIImageView(frame: startingFrame!)

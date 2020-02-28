@@ -20,7 +20,8 @@ struct Message: Codable {
     var timestampString: String?
     var chatUid: String?
     var imageUrl: URL?
-    var imageHeight : Double?
-    var imageWidth : Double?
+    var imageHeight: Double?
+    var imageWidth: Double?
+    var videoUrl: String?
     
 }
