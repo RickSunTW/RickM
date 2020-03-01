@@ -273,7 +273,7 @@ extension GiftViewController: ProductDataManagerDelegate {
         
 //        print(productData)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             self.giftProductListTableView.reloadData()
         }
         

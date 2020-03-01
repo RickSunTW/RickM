@@ -13,6 +13,9 @@ import FirebaseFirestoreSwift
 class ChangeStatusViewController: UIViewController {
     @IBOutlet weak var defaultStatusTableView: UITableView!
     @IBOutlet weak var statusChangeTextField: UITextField!
+    
+    @IBOutlet weak var selfImage: UIImageView!
+    
     @IBAction func upDatedStatusBtnAction(_ sender: UIButton) {
         if statusChangeTextField.text != "" {
             
@@ -42,6 +45,8 @@ class ChangeStatusViewController: UIViewController {
     
     var choiceStatus: String?
     
+    var receiveData : Users?
+    
     var defaultStatus = ["忙碌中",
                          "看電影中",
                          "工作中，賺錢要緊",
@@ -55,22 +60,18 @@ class ChangeStatusViewController: UIViewController {
         super.viewDidLoad()
         defaultStatusTableView.dataSource = self
         defaultStatusTableView.delegate = self
-        //        defaultStatusTableView.separatorStyle = .none
+     
+        if let photoUrl = receiveData?.photoURL {
+            guard let url = URL(string: photoUrl) else {
+                return
+            }
+            selfImage.kf.setImage(with: url)
+            
+        }
         
-        
-        // Do any additional setup after loading the view.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+ 
     let db = Firestore.firestore()
     func UpdateSelfData() {
         

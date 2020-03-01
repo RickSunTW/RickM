@@ -111,7 +111,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         containerView.addSubview(uploadImageView)
         
 //        x,y,w,h
-        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        uploadImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12).isActive = true
         uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         uploadImageView.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -119,16 +119,23 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
 
         
         let sendButton = UIButton(type: .system)
-        sendButton.setTitle("send", for: .normal)
+//        sendButton.setTitle("send", for: .normal)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         containerView.addSubview(sendButton)
         
+        let seedImage = UIImage(named: "paper-plane")
+        
+        sendButton.setBackgroundImage(seedImage, for: .normal)
+        
 //        x,y,w,h
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        sendButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12).isActive = true
+//        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+       
+        
         
         
         containerView.addSubview(inputTextField)

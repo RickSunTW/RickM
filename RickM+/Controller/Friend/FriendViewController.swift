@@ -84,7 +84,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 return UITableViewCell()
             }
+        
+            let twmImage = UIImage(named: "TWM")
             
+            cell.friendCompanyImage.image = twmImage
+        
             cell.friendCompanyName.text = "台灣大哥大"
             
             cell.friendCompanyStatus.text = "台灣大哥大與你生活在一起～"
@@ -100,6 +104,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
                 
+                let twmImage = UIImage(named: "TWM")
+                           
+                cell.friendCompanyGroupImage.image = twmImage
+                       
+                
                 cell.friendCompanyGroupName.text = "PT Group"
                 
                 return cell
@@ -111,7 +120,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
                 
-                cell.friendGroupName.text = "text1～～～"
+                cell.friendGroupName.text = "下午茶團購群"
                 
                 return cell
                 

@@ -19,7 +19,8 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var mIDLabel: UILabel!
     
-    
+    var passData:Users?
+   
     @IBAction func setSelfImageAction(_ sender: UIButton) {
         
         let setImageController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -57,9 +58,16 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     
     @IBAction func changeStatusAction(_ sender: UIButton) {
         
-        self.performSegue(withIdentifier: "ChangeStatus", sender: nil)
+        self.performSegue(withIdentifier: "ChangeStatus", sender: passData)
         
     }
+    
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let controller = segue.destination as? ChangeStatusViewController
+    controller?.receiveData = sender as? Users
+
+    }
+
     
     var userProfileManager = UserProfileManager()
     
@@ -143,26 +151,13 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
     }
 }
 
-//func UpdateSelfData() {
-//
-//    db.collection("Users").document("\(UserUid.share.logInUserUid)").setData([
-//        "name":"內湖洲子魚",
-//        "心情":"尚可"
-//    ], merge: true)
-//
-//}
-//
-//func DeleteSelfData(){
-//
-//    db.collection("Users").document("\(UserUid.share.logInUserUid)").updateData(["心情":FieldValue.delete()])
-//
-//}
-//
-//}
+
 
 extension SelfInformationViewController: UserProfileManagerDelegate {
     
     func manager(_ manager: UserProfileManager, didgetUserData: Users) {
+        
+        passData = didgetUserData
         
         DispatchQueue.main.async {
             
@@ -182,11 +177,6 @@ extension SelfInformationViewController: UserProfileManagerDelegate {
                 
                 self.selfImageBtn.kf.setImage(with: resource, for: .normal)
             }
-            //            else if didgetUserData.photoURL == nil {
-            //
-            //                self.selfImageBtn.setImage(UIImage(named: "photo"), for: .normal)
-            //
-            //        }
             
         }
     }
