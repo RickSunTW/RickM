@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import Kingfisher
+
 
 class GiftViewController: UIViewController {
     
@@ -23,13 +25,10 @@ class GiftViewController: UIViewController {
         UIImage(named: "ThaiTemple")
     ]
     
+    var productDataManager = ProductDataManager()
+    
     var giftProductItemLabel = ["鼠年必備", "填飽肚子", "解饞零嘴", "來一杯吧", "甜食來襲", "解渴救星"]
-    var product0 = ["哈根達斯迷你杯", "紅包袋", "義美小泡芙隨手包", "午後時光重乳奶茶"]
-    var product1 = ["茶葉蛋", "全家39元早餐", "維力雜醬麵"]
-    var product2 = ["可樂果", "乖乖奶油椰子", "統一大布丁"]
-    var product3 = ["Let's Cafe 大杯熱拿鐵", "Let's Cafe 中杯熱巧克力", "Let's Cafe 50元兌換卷", "Let's Cafe 大杯冰拿鐵"]
-    var product4 = ["易口舒脆皮軟新薄荷糖", "蓋奇巧克力棒", "金沙巧克力3粒裝", "森永牛奶糖", "曼陀珠20元系列"]
-    var product5 = ["義美錫蘭紅茶", "FMC蜂蜜水", "波蜜果菜汁", "生活泡沫綠茶"]
+
     var selectedStatus = [Bool](repeating: false, count: 6)
     
     var timer = Timer()
@@ -37,8 +36,18 @@ class GiftViewController: UIViewController {
     
     var selectItem: Int = Int()
     
+    var productData: AllProduct?
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        productDataManager.delegate = self
+        
+        productDataManager.getProductData()
         
         giftImageCollectionView.delegate = self
         
@@ -52,7 +61,7 @@ class GiftViewController: UIViewController {
         
         giftProductListTableView.dataSource = self
         
-        giftProductListTableView.separatorStyle = .none
+        giftProductListTableView.tableFooterView = UIView(frame: CGRect.zero)
         
         giftImageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,12 +76,8 @@ class GiftViewController: UIViewController {
         }
         selectedStatus[0] = true
          
-        // Do any additional setup after loading the view.
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.giftProductItemCollectionView.reloadData()
-//    }
     
     
     @objc func changeImage() {
@@ -143,18 +148,14 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.giftProductItemsLable.text = giftProductItemLabel[indexPath.row]
             cell.giftProductItemsLable.layer.borderWidth = 0.5
             cell.giftProductItemsLable.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//            if (indexPath.row == 0) {
-//                cell.contentView.backgroundColor =  UIColor.darkGray
-//                self.selectedStatus[0] = true
-//            }
-            
+
             if selectedStatus[indexPath.item] {
                 
-                cell.contentView.backgroundColor = UIColor.darkGray
+                cell.contentView.backgroundColor = UIColor(red: 56/255, green: 143/255, blue: 183/255, alpha: 1)
                 
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.lightGray
+                cell.contentView.backgroundColor = UIColor(red: 92/255, green: 194/255, blue: 194/255, alpha: 1)
                 
             }
             
@@ -222,16 +223,13 @@ extension GiftViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch selectItem {
-            
-        case 0: return product0.count
-        case 1: return product1.count
-        case 2: return product2.count
-        case 3: return product3.count
-        case 4: return product4.count
-        case 5: return product5.count
-        default: return 1
+        
+        guard let productNumber = productData?.datas[selectItem].product.count  else {
+            return 0
         }
+        
+        return productNumber
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -240,34 +238,50 @@ extension GiftViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
            
         }
-        switch selectItem {
-        case 0:
-            cell.giftProductListName.text = product0[indexPath.row]
-            cell.giftProductPrice.text = "$ 30"
-            return cell
-        case 1:
-            cell.giftProductListName.text = product1[indexPath.row]
-            cell.giftProductPrice.text = "$ 5"
-            return cell
-        case 2:
-            cell.giftProductListName.text = product2[indexPath.row]
-            cell.giftProductPrice.text = "$ 15"
-            return cell
-        case 3:
-            cell.giftProductListName.text = product3[indexPath.row]
-            cell.giftProductPrice.text = "$ 45"
-            return cell
-        case 4:
-            cell.giftProductListName.text = product4[indexPath.row]
-            cell.giftProductPrice.text = "$ 10"
-            return cell
-        case 5:
-            cell.giftProductListName.text = product5[indexPath.row]
-            cell.giftProductPrice.text = "$ 20"
-            return cell
-        default: return cell
+        if let productInfo = productData?.datas[selectItem].product[indexPath.row] {
+                       
+                       cell.giftProductListName.text = productInfo.name
+                       
+                       cell.giftProductPrice.text = String("$ \(productInfo.price)")
+                       
+                       cell.giftProductListComment.text = productInfo.description
+                       
+                       cell.giftProductListFeature.text = productInfo.introduction
+                       
+                       
+                       guard let url = URL(string: productInfo.imageUrl) else {
+                           return UITableViewCell()
+                       }
+                       
+                       cell.giftProductListImage.kf.setImage(with: url)
+                       cell.giftProductListImage.contentMode = .scaleToFill
+                       
+                   }
+                   
+                   return cell
+        
+    }
+    
+
+}
+
+
+extension GiftViewController: ProductDataManagerDelegate {
+    func manager(_ manager: ProductDataManager, didgetProductData: AllProduct) {
+        
+        self.productData = didgetProductData
+        
+//        print(productData)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            self.giftProductListTableView.reloadData()
         }
         
+        return
+    }
+    
+    func manager(_ manager: ProductDataManager, didFailWith error: Error) {
+        return
     }
     
 

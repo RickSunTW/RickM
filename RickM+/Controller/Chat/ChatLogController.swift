@@ -235,7 +235,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                                     
                                     db.collection("Message").document().setData([
                                         
-                                        //            id  = DocumentID
                                         "imageUrl": "\(photoURL)",
                                         "videoUrl": "\(storageUrl)",
                                         "toid": "\(self.user!.id)",
@@ -389,11 +388,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     func setupKeyboardObservers() {
-//        NotificationCenter.default.addObserver(self,selector: #selector(handleKeyboardWillShow),
-//                                               name: UIResponder.keyboardWillShowNotification,object: nil)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
@@ -402,7 +397,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             let indexPath = NSIndexPath(item: chatLog.count - 1 , section: 0)
             collectionView?.scrollToItem(at: indexPath as IndexPath, at: .top, animated: true)
         }
-        
         
     }
     
@@ -418,8 +412,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                 
             }
             
-//            containerViewBottomAnchor?.constant = -keyboardFrame.height
-//            print(keyboardFrame)
         }
         if let keyBoardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             
@@ -579,8 +571,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         cell.textView.text = message.text
         
         cell.message = message
-        
-//        cell.chatLog[indexPath.row] = chatLog[indexPath.row]
         
         if let text = message.text {
             

@@ -33,6 +33,8 @@
 		575BBB9C24036280008B8034 /* ChatMessageCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575BBB9B24036280008B8034 /* ChatMessageCellCollectionViewCell.swift */; };
 		575D451823E7FE0A000A51BD /* GiftProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */; };
 		575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */; };
+		575E7694240A2B98004827DE /* ProductDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E7693240A2B98004827DE /* ProductDataModel.swift */; };
+		575E7696240A2F33004827DE /* ProductDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E7695240A2F33004827DE /* ProductDataManager.swift */; };
 		575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */; };
 		575E79AA23FEBD1900744516 /* TimeFormatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575E79A923FEBD1900744516 /* TimeFormatHelper.swift */; };
 		57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57609FE123E6B51200F91EB7 /* GiftViewController.swift */; };
@@ -79,6 +81,8 @@
 		575BBB9B24036280008B8034 /* ChatMessageCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		575D451723E7FE0A000A51BD /* GiftProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftProductListTableViewCell.swift; sourceTree = "<group>"; };
 		575D451A23E83E22000A51BD /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
+		575E7693240A2B98004827DE /* ProductDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataModel.swift; sourceTree = "<group>"; };
+		575E7695240A2F33004827DE /* ProductDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataManager.swift; sourceTree = "<group>"; };
 		575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogMessageDataModel.swift; sourceTree = "<group>"; };
 		575E79A923FEBD1900744516 /* TimeFormatHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatHelper.swift; sourceTree = "<group>"; };
 		57609FE123E6B51200F91EB7 /* GiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 				57C1360123F6730F000E70F2 /* UserProfileManager.swift */,
 				575E79A723FE7B5F00744516 /* ChatLogMessageDataModel.swift */,
 				57C135FF23F66625000E70F2 /* UserProfileDataModel.swift */,
+				575E7695240A2F33004827DE /* ProductDataManager.swift */,
+				575E7693240A2B98004827DE /* ProductDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -449,7 +455,9 @@
 				575B898F23FD539100610045 /* SelectNewChatWorkTableViewCell.swift in Sources */,
 				57609FE223E6B51200F91EB7 /* GiftViewController.swift in Sources */,
 				57545DEA23F1387A00B26093 /* ChangeNamwViewController.swift in Sources */,
+				575E7694240A2B98004827DE /* ProductDataModel.swift in Sources */,
 				575D451B23E83E22000A51BD /* ChatListTableViewCell.swift in Sources */,
+				575E7696240A2F33004827DE /* ProductDataManager.swift in Sources */,
 				57545DEC23F1388C00B26093 /* ChangeStatusViewController.swift in Sources */,
 				57545DE623F1097F00B26093 /* MoreViewController.swift in Sources */,
 				575E79A823FE7B5F00744516 /* ChatLogMessageDataModel.swift in Sources */,
