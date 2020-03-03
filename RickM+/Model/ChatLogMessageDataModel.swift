@@ -11,7 +11,7 @@ import UIKit
 
 
 struct Message: Codable {
-    var formid: String?
+    var fromid: String?
     var text: String?
     var toid: String?
     var timestamp: Double?
@@ -23,5 +23,6 @@ struct Message: Codable {
     var imageHeight: Double?
     var imageWidth: Double?
     var videoUrl: String?
+    var chatDocumentUid: String?
     
 }

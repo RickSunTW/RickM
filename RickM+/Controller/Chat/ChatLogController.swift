@@ -374,7 +374,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                 }
 
             }
-            
+        
             self.inputTextField.text = nil
             
     //        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
@@ -482,7 +482,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                                 
                                 for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                     
-                                    if messageDL.formid == UserInfo.share.friendList[searchFriend].id {
+                                    if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
                                         
                                         messageDL.toName = UserInfo.share.friendList[searchFriend].name
                                         
@@ -506,7 +506,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                                 
                                 for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                     
-                                    if messageDL.formid == UserInfo.share.friendList[searchFriend].id {
+                                    if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
                                         
                                         messageDL.toName = UserInfo.share.friendList[searchFriend].name
                                         
@@ -611,7 +611,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
         cell.profileImageView.kf.setImage(with: message.toPhotoUrl)
         
-        if UserInfo.share.logInUserUid == chatLog[indexPath.row].formid {
+        if UserInfo.share.logInUserUid == chatLog[indexPath.row].fromid {
             
             cell.bubbleView.backgroundColor = UIColor(red: 0/255, green: 137/255, blue: 249/255, alpha: 1)
             
@@ -709,14 +709,16 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         let db = Firestore.firestore()
         let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
         
+        let chatDocumentUid = db.collection("Message").document().documentID
         
-        db.collection("Message").document().setData([
+        db.collection("Message").document(chatDocumentUid).setData([
             
             "text": "\(inputTextField.text!)",
             "toid": "\(user!.id)",
-            "formid": "\(UserInfo.share.logInUserUid)",
+            "fromid": "\(UserInfo.share.logInUserUid)",
             "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
             "timestamp": timeStamp,
+            "chatDocumentUid": "\(chatDocumentUid)"
             
             ])
         { (error) in
@@ -725,6 +727,29 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             }
 
         }
+        db.collection("user-message").document(UserInfo.share.logInUserUid).collection(user!.id).document(chatDocumentUid).setData([
+                   
+                   "chatDocumentUid": "\(chatDocumentUid)",
+                   
+                   ])
+               { (error) in
+                   if let error = error {
+                       print(error)
+                   }
+
+               }
+        db.collection("user-message").document(user!.id).collection(UserInfo.share.logInUserUid).document(chatDocumentUid).setData([
+                   
+                   "chatDocumentUid": "\(chatDocumentUid)",
+                   
+                   ])
+               { (error) in
+                   if let error = error {
+                       print(error)
+                   }
+
+               }
+        
         
         self.inputTextField.text = nil
         

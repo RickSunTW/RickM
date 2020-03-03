@@ -78,7 +78,7 @@ class ChatMainViewController: UIViewController {
                         
                         guard var messageDL = chat else {return}
                         
-                        if messageDL.formid == UserInfo.share.logInUserUid {
+                        if messageDL.fromid == UserInfo.share.logInUserUid {
                             
                             for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
@@ -106,7 +106,7 @@ class ChatMainViewController: UIViewController {
                             
                             for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
-                                if messageDL.formid == UserInfo.share.friendList[searchFriend].id {
+                                if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
                                     
                                     messageDL.toName = UserInfo.share.friendList[searchFriend].name
                                     
@@ -130,12 +130,12 @@ class ChatMainViewController: UIViewController {
                         
                         if messageDL.toid == UserInfo.share.logInUserUid {
                             
-                            self.toId = messageDL.formid!
+                            self.toId = messageDL.fromid!
                             
                             self.chatMessageDictionary[self.toId] = messageDL
                             
                         }
-                        else if messageDL.formid == UserInfo.share.logInUserUid {
+                        else if messageDL.fromid == UserInfo.share.logInUserUid {
                             
                             self.toId = messageDL.toid!
                             
@@ -253,7 +253,7 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
             
             
 //            let db = Firestore.firestore()
-//            db.collection("cities").document("DC").delete()
+//            db.collection("Message").document().documentID
 //            db.collection("Message").whereField("chatUid", isEqualTo: deleteAB).delete()
             
             
