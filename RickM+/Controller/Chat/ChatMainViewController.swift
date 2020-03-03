@@ -193,8 +193,6 @@ class ChatMainViewController: UIViewController {
                 
                 self?.showChatController(user: chat)
                 
-//                print("\(chat)")
-                
             }
         }
     }
@@ -246,6 +244,28 @@ extension ChatMainViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+//            let deleteAB = chatLog[indexPath.row].chatUid
+            
+            
+//            let db = Firestore.firestore()
+//            db.collection("cities").document("DC").delete()
+//            db.collection("Message").whereField("chatUid", isEqualTo: deleteAB).delete()
+            
+            
+          
+                    
+                    
+            //        .whereField("formid", isEqualTo: UserInfo.share.logInUserUid)
+            //        .order(by: "timestamp", descending: false)
+//            chatLog[indexPath.row].remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
     }
 }
 

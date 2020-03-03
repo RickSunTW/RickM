@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Kingfisher
 import Firebase
+import JGProgressHUD
 
 class FriendViewController: UIViewController {
     @IBOutlet weak var friendTableView: UITableView!
@@ -32,6 +33,10 @@ class FriendViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         userProfileManager.getUserData(id: "\(UserInfo.share.logInUserUid)")
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 1.0)
         self.tabBarController?.tabBar.isHidden = false
         
     }
@@ -59,7 +64,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
                 
             }
-            
             
             cell.friendPersonalName.text = userData?.name
             

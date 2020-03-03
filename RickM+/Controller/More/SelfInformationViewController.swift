@@ -115,12 +115,16 @@ class SelfInformationViewController: UIViewController, UIImagePickerControllerDe
         var selectedImageFormPicker: UIImage?
         
         if let editedImage = info[.editedImage]  as? UIImage {
+            
             selectedImageFormPicker = editedImage
-            selfImageBtn.setImage(selectedImageFormPicker, for: .normal)
+        
         } else if let pickedImage = info[.originalImage] as? UIImage {
+            
             selectedImageFormPicker = pickedImage
-            selfImageBtn.setImage(selectedImageFormPicker, for: .normal)
+            
         }
+        
+        selfImageBtn.setImage(selectedImageFormPicker, for: .normal)
         
         dismiss(animated: true, completion: nil)
         
