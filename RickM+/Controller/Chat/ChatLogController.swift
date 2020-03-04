@@ -38,6 +38,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     var chatLog = [Message]()
+    var newChatLog = [Message]()
     let cellId = "cellId"
     var chatToPhotoUrl = String()
     
@@ -240,16 +241,21 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                                 storageRef.downloadURL { (url, error) in
                                     guard let photoURL = url?.absoluteURL else { return }
                                     
-                                    db.collection("Message").document().setData([
+                                    //發送影片的, 要加入uaer-message來管理
+                                    
+                                    let chatDocumentUid = db.collection("Message").document().documentID
+                                    
+                                    db.collection("Message").document(chatDocumentUid).setData([
                                         
                                         "imageUrl": "\(photoURL)",
                                         "videoUrl": "\(storageUrl)",
                                         "toid": "\(self.user!.id)",
-                                        "formid": "\(UserInfo.share.logInUserUid)",
+                                        "fromid": "\(UserInfo.share.logInUserUid)",
                                         "chatUid": "\(UserInfo.share.logInUserUid)-\(self.user!.id)",
                                         "timestamp": timeStamp,
                                         "imageHeight": thumbnailImage.size.height,
                                         "imageWidth": thumbnailImage.size.width,
+                                        "chatDocumentUid": "\(chatDocumentUid)",
                                         ])
                                     { (error) in
                                         if let error = error {
@@ -352,40 +358,43 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     private func seedMessageWithImageUrl(imageUrl: URL, image: UIImage) {
-            
-            let db = Firestore.firestore()
-            let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
-            
-            
-            db.collection("Message").document().setData([
-                
-    //            id  = DocumentID
-                "imageUrl": "\(imageUrl)",
-                "toid": "\(user!.id)",
-                "formid": "\(UserInfo.share.logInUserUid)",
-                "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
-                "timestamp": timeStamp,
-                "imageHeight": image.size.height,
-                "imageWidth": image.size.width,
-                ])
-            { (error) in
-                if let error = error {
-                    print(error)
-                }
-
-            }
         
-            self.inputTextField.text = nil
+        let db = Firestore.firestore()
+        let timeStamp: NSNumber = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+        
+        
+        let chatDocumentUid = db.collection("Message").document().documentID
+        
+        db.collection("Message").document(chatDocumentUid).setData([
             
-    //        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
-    //            "\(chatUid)": "1",
-    //            ], merge: true)
+            
+            "imageUrl": "\(imageUrl)",
+            "toid": "\(user!.id)",
+            "fromid": "\(UserInfo.share.logInUserUid)",
+            "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
+            "timestamp": timeStamp,
+            "imageHeight": image.size.height,
+            "imageWidth": image.size.width,
+            "chatDocumentUid": "\(chatDocumentUid)",
+            ])
+        { (error) in
+            if let error = error {
+                print(error)
+            }
             
         }
+        
+        self.inputTextField.text = nil
+        
+        //        db.collection("user-messages").document("\(UserInfo.share.logInUserUid)").setData([
+        //            "\(chatUid)": "1",
+        //            ], merge: true)
+        
+    }
     
     override var inputAccessoryView: UIView? {
         get {
-        
+            
             return inputContainerView
         }
     }
@@ -395,7 +404,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     func setupKeyboardObservers() {
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
     }
     
@@ -446,118 +455,119 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     }
     
     func observeMessageChat() {
-            let db = Firestore.firestore().collection("Message").order(by: "timestamp", descending: false)
+    
+        let db = Firestore.firestore().collection("Message").order(by: "timestamp", descending: false)
             
             
-    //        .whereField("chatUid", isEqualTo: UserInfo.share.chatRealTimePairUidToFriend)
-    //        .order(by: "timestamp", descending: false)
+    //*        .whereField("chatUid", isEqualTo: UserInfo.share.chatRealTimePairUidToFriend)
+    //*        .order(by: "timestamp", descending: false)
             
-            db.addSnapshotListener { (querySnapshot, error) in
-                if let error = error {
+        db.addSnapshotListener { (querySnapshot, error) in
+            if let error = error {
+                
+                print("Error getting documents: \(error)")
+                
+            } else {
+                
+                guard let quary = querySnapshot else {
                     
-                    print("Error getting documents: \(error)")
+                    return
                     
-                } else {
+                }
+                
+                self.chatLog.removeAll()
+                
+                
+                
+                for document in quary.documents {
                     
-                    guard let quary = querySnapshot else {
+                    do {
                         
-                        return
+                        document.data()
                         
-                    }
-                    
-                    self.chatLog.removeAll()
-
-                    
-                    for document in quary.documents {
+                        let chat = try document.data(as: Message.self, decoder: Firestore.Decoder())
                         
-                        do {
+                        guard var messageDL = chat else {return}
+                        
+                        if messageDL.chatUid == "\(UserInfo.share.chatRealTimePairUidToFriend)" {
                             
-                            document.data()
-                            
-                            let chat = try document.data(as: Message.self, decoder: Firestore.Decoder())
-                            
-                            guard var messageDL = chat else {return}
-                            
-                            if messageDL.chatUid == "\(UserInfo.share.chatRealTimePairUidToFriend)" {
+                            for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
-                                for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
+                                if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
                                     
-                                    if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
-                                        
-                                        messageDL.toName = UserInfo.share.friendList[searchFriend].name
-                                        
-                                        guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
-                                        
-                                        messageDL.toPhotoUrl = url
-                                        
-                                        let format = DateFormatter()
-                                        
-                                        format.dateFormat = "dd/MM hh:mm a"
-                                        
-                                        let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
-                                        
-                                        messageDL.timestampString = format.string(from: newdate)
-                                        
-                                    }
+                                    messageDL.toName = UserInfo.share.friendList[searchFriend].name
                                     
-                                }
-                                
-                            } else if messageDL.toid == UserInfo.share.logInUserUid {
-                                
-                                for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
+                                    guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
                                     
-                                    if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
-                                        
-                                        messageDL.toName = UserInfo.share.friendList[searchFriend].name
-                                        
-                                        guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
-                                        
-                                        messageDL.toPhotoUrl = url
-                                        
-                                        let format = DateFormatter()
-                                        
-                                        format.dateFormat = "dd/MM hh:mm a"
-                                        
-                                        let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
-                                        
-                                        messageDL.timestampString = format.string(from: newdate)
-                                        
-                                    }
+                                    messageDL.toPhotoUrl = url
+                                    
+                                    let format = DateFormatter()
+                                    
+                                    format.dateFormat = "dd/MM hh:mm a"
+                                    
+                                    let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                                    
+                                    messageDL.timestampString = format.string(from: newdate)
                                     
                                 }
                                 
                             }
                             
-                            if messageDL.chatUid == UserInfo.share.chatRealTimePairUidToFriend {
+                        } else if messageDL.toid == UserInfo.share.logInUserUid {
+                            
+                            for searchFriend in 0...(UserInfo.share.friendList.count - 1) {
                                 
-                                self.chatLog.append(messageDL)
-                                
-                            }
-                            else if messageDL.chatUid == UserInfo.share.chatRealTimePairUidFromMe {
-                                
-                                self.chatLog.append(messageDL)
+                                if messageDL.fromid == UserInfo.share.friendList[searchFriend].id {
+                                    
+                                    messageDL.toName = UserInfo.share.friendList[searchFriend].name
+                                    
+                                    guard let url = URL(string: UserInfo.share.friendList[searchFriend].photoURL!) else { return }
+                                    
+                                    messageDL.toPhotoUrl = url
+                                    
+                                    let format = DateFormatter()
+                                    
+                                    format.dateFormat = "dd/MM hh:mm a"
+                                    
+                                    let newdate = NSDate(timeIntervalSince1970: messageDL.timestamp!) as Date
+                                    
+                                    messageDL.timestampString = format.string(from: newdate)
+                                    
+                                }
                                 
                             }
                             
+                        }
+                        
+                        if messageDL.chatUid == UserInfo.share.chatRealTimePairUidToFriend {
+                            
+                            self.chatLog.append(messageDL)
+                            
+                        }
+                        else if messageDL.chatUid == UserInfo.share.chatRealTimePairUidFromMe {
+                            
+                            self.chatLog.append(messageDL)
+                            
+                        }
+                        
 //                            print("\(messageDL)")
 //                            print("\(self.chatLog.count)")
                             
-                            
-                            DispatchQueue.main.async {
-                                
-                                self.collectionView.reloadData()
-                                let indexPath = NSIndexPath(item: self.chatLog.count - 1, section: 0)
-                                self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
-                                
-                            }
-                            
-                        } catch {
-                            
-                            print(error)
-                            
-                        }
+                        
+                    } catch {
+                        
+                        print(error)
+                        
                     }
                 }
+                DispatchQueue.main.async {
+                    
+                    self.collectionView.reloadData()
+                    let indexPath = NSIndexPath(item: self.chatLog.count - 1, section: 0)
+                    self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
+                    
+                }
+            }
         }
     }
     
@@ -641,11 +651,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-//        print("ya")
+     
     }
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//           self.view.endEditing(true)
-//       }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
@@ -718,8 +725,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             "fromid": "\(UserInfo.share.logInUserUid)",
             "chatUid": "\(UserInfo.share.logInUserUid)-\(user!.id)",
             "timestamp": timeStamp,
-            "chatDocumentUid": "\(chatDocumentUid)"
-            
+            "chatDocumentUid": "\(chatDocumentUid)",
             ])
         { (error) in
             if let error = error {
@@ -727,30 +733,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             }
 
         }
-        db.collection("user-message").document(UserInfo.share.logInUserUid).collection(user!.id).document(chatDocumentUid).setData([
-                   
-                   "chatDocumentUid": "\(chatDocumentUid)",
-                   
-                   ])
-               { (error) in
-                   if let error = error {
-                       print(error)
-                   }
-
-               }
-        db.collection("user-message").document(user!.id).collection(UserInfo.share.logInUserUid).document(chatDocumentUid).setData([
-                   
-                   "chatDocumentUid": "\(chatDocumentUid)",
-                   
-                   ])
-               { (error) in
-                   if let error = error {
-                       print(error)
-                   }
-
-               }
-        
-        
+              
         self.inputTextField.text = nil
         
     }
@@ -771,7 +754,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         self.startingImageView = startingImageView
         
         self.startingImageView?.isHidden = true
-
+        
         startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
         
         let zoomingImageView = UIImageView(frame: startingFrame!)
@@ -803,30 +786,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
                 zoomingImageView.center = keyWindow.center
             }, completion: { (completed: Bool) in
                 
-//                zoomOutImageView.removeFromSuperview()
                 
             })
-                
-            }
             
-            
-            
-            
-//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-//
-//                self.blackBackgroundView?.alpha = 1
-//                self.inputContainerView.alpha = 0
-//
-//
-//                let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
-//
-//                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
-//
-//                zoomingImageView.center = keyWindow.center
-//
-//            }, completion: nil)
-            
-//        }
+        }
 
     }
     
@@ -850,27 +813,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
             zoomOutImageView.removeFromSuperview()
             self.startingImageView?.isHidden = false
             
-            
         })
             
         }
         
-//        if let zoomOutImageView = tapGesture.view {
-//
-//
-//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-//
-//                zoomOutImageView.frame = self.startingFrame!
-//                self.blackBackgroundView?.alpha = 0
-//
-//            }, completion: { (completed: Bool) in
-//
-//                zoomOutImageView.removeFromSuperview()
-//
-//            })
-//
-//
-//        }
         
     }
     
@@ -878,7 +824,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIImag
         
         let size = CGSize(width: 200, height: 800)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
         
         return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)], context: nil)
         

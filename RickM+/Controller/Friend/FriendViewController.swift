@@ -209,6 +209,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         if indexPath.section == 0 {
             
             self.performSegue(withIdentifier: "ShowUserProfile", sender: nil)

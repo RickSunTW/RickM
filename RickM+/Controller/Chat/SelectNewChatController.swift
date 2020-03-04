@@ -28,6 +28,7 @@ class SelectNewChatController: UIViewController {
         
         selectChatTableView.dataSource = self
         selectChatTableView.delegate = self
+        selectChatTableView.tableFooterView = UIView(frame: CGRect.zero)
         
         // Do any additional setup after loading the view.
     }
@@ -90,6 +91,8 @@ extension SelectNewChatController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
         
         navigationController?.popViewController(animated: true)
         
